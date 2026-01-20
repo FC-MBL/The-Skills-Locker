@@ -2,6 +2,3 @@
 
 name = "skills-locker"
 pages_build_output_dir = "dist"
-
-[build]
-command = "npm run build"
