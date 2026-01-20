@@ -4,7 +4,7 @@
  * Can be swapped with Firebase Auth, Auth0, etc. later
  */
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import type { User, UserRole } from '@/types';
 import { userStorage } from '@/utils/storage';
 
@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setCurrentUser(user);
     }, []);
 
-    const login = async (email: string, password: string): Promise<void> => {
+    const login = async (email: string, _password: string): Promise<void> => {
         // TODO: Replace with real authentication
         // For now, simple demo login
 
@@ -66,7 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return roles.includes(currentUser.role);
     };
 
-    const canEditCourse = (courseId: string): boolean => {
+    const canEditCourse = (_courseId: string): boolean => {
         if (!currentUser) return false;
 
         // ADMIN can edit anything

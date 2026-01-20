@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '@/components/AdminLayout';
 import { courseStorage, domainStorage } from '@/utils/storage';
-import type { CourseItem, CourseTier, CourseStatus } from '@/types';
+import type { CourseTier, CourseStatus } from '@/types';
 import { Search, Plus, Filter } from 'lucide-react';
 import styles from './CourseList.module.css';
 

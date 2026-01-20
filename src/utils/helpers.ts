@@ -152,7 +152,7 @@ export function hasCircularDependencies(
     course: CourseItem,
     allCourses?: CourseItem[]
 ): boolean {
-    if (!allCourses) return false;
+    if (!allCourses || allCourses.length === 0) return false;
 
     const visited = new Set<string>();
     const recursionStack = new Set<string>();
@@ -164,7 +164,8 @@ export function hasCircularDependencies(
         visited.add(courseId);
         recursionStack.add(courseId);
 
-        const currentCourse = allCourses.find((c) => c.id === courseId);
+        // allCourses is guaranteed to exist due to guard clause above
+        const currentCourse = allCourses!.find((c) => c.id === courseId);
         if (currentCourse) {
             for (const prereqId of currentCourse.prerequisites || []) {
                 if (dfs(prereqId)) return true;
