@@ -1,0 +1,1 @@
+// Placeholder to maintain structure guidelines, content distributed in UI.tsx
