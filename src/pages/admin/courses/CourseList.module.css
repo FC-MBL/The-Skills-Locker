@@ -1,0 +1,199 @@
+.courseList {
+    max-width: 1400px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    margin-bottom: 0.25rem;
+}
+
+/* ============================================
+   Filters
+   ============================================ */
+
+.filters {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.searchBox {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+.searchInput {
+    width: 100%;
+    padding-left: 2.5rem !important;
+}
+
+.filterGroup {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.filterSelect {
+    min-width: 150px;
+}
+
+.resultsCount {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* ============================================
+   Table
+   ============================================ */
+
+.tableWrapper {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: var(--bg-secondary);
+}
+
+.table th {
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background-color: var(--bg-hover);
+}
+
+.table td {
+    padding: 1.25rem 1.5rem;
+    font-size: 0.875rem;
+}
+
+.titleCell {
+    font-weight: 500;
+}
+
+.courseTitle {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.courseTitle:hover {
+    color: var(--primary);
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* ============================================
+   Badges
+   ============================================ */
+
+.statusBadge,
+.tierBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+}
+
+.badgeDraft {
+    background-color: #f3f4f6;
+    color: #6b7280;
+}
+
+.badgeReview {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.badgePublished {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.badgeArchived {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.tierByte {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.tierMicrocred {
+    background-color: #ede9fe;
+    color: #6b21a8;
+}
+
+.tierShort {
+    background-color: #fce7f3;
+    color: #9f1239;
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+
+.empty {
+    background-color: var(--bg-primary);
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.empty p {
+    color: var(--text-secondary);
+    margin: 0 0 1rem 0;
+}
