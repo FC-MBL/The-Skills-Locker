@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ITEMS, MODULES } from '../data';
 import { useStore } from '../store';
 import { Button, Toast } from '../components/UI';
 import { CheckCircle, Play, FileText, Activity, ChevronLeft, ArrowRight } from 'lucide-react';
@@ -8,14 +7,29 @@ import { CheckCircle, Play, FileText, Activity, ChevronLeft, ArrowRight } from '
 export const Player = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { getEnrollment, completeByte, completeModule } = useStore();
+  const { items, modules, user, getEnrollment, completeByte, completeModule } = useStore();
   const [showToast, setShowToast] = useState(false);
   
-  const item = ITEMS.find(i => i.id === id);
+  const item = items.find(i => i.id === id);
   if (!item) return <div>Not Found</div>;
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'EDITOR';
+  const isContributor = user?.role === 'CONTRIBUTOR';
+  const canViewDraft = isAdmin || (isContributor && item.createdById === user?.id);
+  if (item.status !== 'PUBLISHED' && !canViewDraft) {
+    return <div className="p-8 text-slate-600">This course is not published yet.</div>;
+  }
 
   const enrollment = getEnrollment(item.id);
-  const modules = MODULES.filter(m => m.itemId === item.id).sort((a,b) => a.order - b.order);
+  const structuredModules = (item.contentStructure || []).map((mod, index) => ({
+    id: mod.id,
+    itemId: item.id,
+    title: mod.title,
+    order: mod.order ?? index,
+    type: 'READING' as const,
+    estimatedMinutes: Math.max(10, mod.lessons.length * 10)
+  }));
+  const courseModules = (structuredModules.length > 0 ? structuredModules : modules.filter(m => m.itemId === item.id))
+    .sort((a,b) => a.order - b.order);
 
   // Simple Byte Player
   if (item.tier === 'BYTE') {
@@ -58,7 +72,10 @@ export const Player = () => {
   }
 
   // Multi-Module Player (Short/Micro)
-  const isModulesComplete = enrollment && enrollment.completedModuleIds.length === modules.length;
+  if (courseModules.length === 0) {
+      return <div className="p-8 text-slate-600">Course content is being prepared.</div>;
+  }
+  const isModulesComplete = enrollment && enrollment.completedModuleIds.length === courseModules.length;
 
   return (
       <div className="flex flex-col md:flex-row min-h-[calc(100vh-80px)]">
@@ -67,7 +84,7 @@ export const Player = () => {
               <Link to="/dashboard" className="flex items-center gap-2 text-slate-500 font-bold mb-8 hover:text-primary"><ChevronLeft size={20}/> Dashboard</Link>
               <h2 className="font-display uppercase text-lg mb-6">{item.title}</h2>
               <div className="space-y-2">
-                  {modules.map(m => {
+                  {courseModules.map(m => {
                       const isDone = enrollment?.completedModuleIds.includes(m.id);
                       return (
                           <div 

@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { ITEMS, DOMAINS } from '../data';
+import { DOMAINS } from '../data';
 import { Link } from 'react-router-dom';
-import { Card, Badge, Button } from '../components/UI';
+import { Card, Badge } from '../components/UI';
 import { Search, Filter } from 'lucide-react';
+import { useStore } from '../store';
 
 export const Catalogue = () => {
   const [search, setSearch] = useState('');
   const [filterTier, setFilterTier] = useState<string>('ALL');
   const [filterDomain, setFilterDomain] = useState<string>('ALL');
+  const { items } = useStore();
 
-  const filteredItems = ITEMS.filter(item => {
+  const publishedItems = items.filter(item => item.status === 'PUBLISHED');
+  const filteredItems = publishedItems.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(search.toLowerCase());
     const matchesTier = filterTier === 'ALL' || item.tier === filterTier;
     const matchesDomain = filterDomain === 'ALL' || item.domainId === filterDomain;
@@ -21,7 +24,7 @@ export const Catalogue = () => {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
            <h1 className="text-4xl font-display uppercase text-slate-900 mb-2">Course Catalogue</h1>
-           <p className="text-slate-500">Browse {ITEMS.length} courses across {DOMAINS.length} domains.</p>
+           <p className="text-slate-500">Browse {publishedItems.length} courses across {DOMAINS.length} domains.</p>
         </div>
         
         {/* Search */}

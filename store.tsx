@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Enrollment, User, Item, Module, Quiz, Cohort, UserRole } from './types';
-import { ITEMS, MODULES, QUIZZES, COHORTS, ADMIN_USERS } from './data';
+import { ITEMS, MODULES, QUIZZES, COHORTS, ADMIN_USERS, CONTRIBUTOR_USERS } from './data';
 
 interface AppState {
   user: User | null;
@@ -9,12 +9,12 @@ interface AppState {
   cohorts: Cohort[];
   modules: Module[];
   quizzes: Quiz[];
-  
+
   // Auth
   login: (email: string) => void;
   signup: (name: string, email: string) => void;
   logout: () => void;
-  
+
   // Learner Actions
   enroll: (itemId: string) => void;
   unenroll: (itemId: string) => void;
@@ -31,6 +31,10 @@ interface AppState {
   saveCourseStructure: (itemId: string, structure: any) => void;
   updateCohort: (cohort: Cohort) => void;
   createCohort: (cohort: Cohort) => void;
+  submitItemForReview: (itemId: string, notes?: string) => void;
+  approveItem: (itemId: string, notes?: string) => void;
+  rejectItem: (itemId: string, notes?: string) => void;
+  updateUser: (updates: Partial<User>) => void;
 }
 
 const StoreContext = createContext<AppState | undefined>(undefined);
@@ -49,11 +53,15 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (adminUser) {
       setUser(adminUser);
     } else {
-      // Mock learner login
-      setUser({ id: 'u1', name: 'Alex Learner', email, role: 'LEARNER' });
+      const contributorUser = CONTRIBUTOR_USERS.find(u => u.email === email);
+      if (contributorUser) {
+        setUser(contributorUser);
+      } else {
+        // Mock learner login
+        setUser({ id: 'u1', name: 'Alex Learner', email, role: 'LEARNER' });
+      }
     }
   };
-
   const signup = (name: string, email: string) => {
     setUser({ id: 'u2', name, email, role: 'LEARNER' });
   };
@@ -99,16 +107,16 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const completeByte = (itemId: string) => {
     setEnrollments(prev => prev.map(e => {
-        if (e.itemId === itemId) {
-            return {
-                ...e,
-                status: 'COMPLETED',
-                progressPercent: 100,
-                completedAt: new Date().toISOString(),
-                credentialIssued: false
-            }
+      if (e.itemId === itemId) {
+        return {
+          ...e,
+          status: 'COMPLETED',
+          progressPercent: 100,
+          completedAt: new Date().toISOString(),
+          credentialIssued: false
         }
-        return e;
+      }
+      return e;
     }));
   };
 
@@ -117,11 +125,15 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       if (e.itemId === itemId) {
         if (e.completedModuleIds.includes(moduleId)) return e;
         const newCompleted = [...e.completedModuleIds, moduleId];
-        const courseModules = modules.filter(m => m.itemId === itemId);
+        const item = items.find(i => i.id === itemId);
+        const structuredModules = item?.contentStructure || [];
+        const moduleCount = structuredModules.length > 0
+          ? structuredModules.length
+          : modules.filter(m => m.itemId === itemId).length;
         // Simple fallback if no modules defined but somehow called
-        const total = courseModules.length || 1; 
+        const total = moduleCount || 1;
         const progress = Math.round((newCompleted.length / total) * 100);
-        
+
         return {
           ...e,
           completedModuleIds: newCompleted,
@@ -136,7 +148,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const submitAssessment = (itemId: string, score: number) => {
     let result = { passed: false, credentialIssued: false };
-    
+
     setEnrollments(prev => prev.map(e => {
       if (e.itemId === itemId) {
         const quiz = quizzes.find(q => q.itemId === itemId);
@@ -147,16 +159,19 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         let credIssued = false;
 
         if (passed) {
-             if (item?.tier === 'MICROCRED') {
-                 newStatus = 'COMPLETED';
-                 credIssued = true;
-             } else if (item?.tier === 'SHORT') {
-                 const courseModules = modules.filter(m => m.itemId === itemId);
-                 if (e.completedModuleIds.length >= courseModules.length) {
-                     newStatus = 'COMPLETED';
-                     credIssued = true;
-                 }
-             }
+          if (item?.tier === 'MICROCRED') {
+            newStatus = 'COMPLETED';
+            credIssued = true;
+          } else if (item?.tier === 'SHORT') {
+            const structuredModules = item?.contentStructure || [];
+            const moduleCount = structuredModules.length > 0
+              ? structuredModules.length
+              : modules.filter(m => m.itemId === itemId).length;
+            if (e.completedModuleIds.length >= moduleCount) {
+              newStatus = 'COMPLETED';
+              credIssued = true;
+            }
+          }
         }
         result = { passed, credentialIssued: credIssued };
 
@@ -182,7 +197,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const createItem = (newItem: Item) => {
-    setItems(prev => [...prev, newItem]);
+    setItems(prev => [...prev, { ...newItem, createdAt: newItem.createdAt || new Date().toISOString() }]);
   };
 
   const deleteItem = (itemId: string) => {
@@ -190,12 +205,12 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   };
 
   const saveCourseStructure = (itemId: string, structure: any) => {
-      setItems(prev => prev.map(i => {
-          if (i.id === itemId) {
-              return { ...i, contentStructure: structure };
-          }
-          return i;
-      }));
+    setItems(prev => prev.map(i => {
+      if (i.id === itemId) {
+        return { ...i, contentStructure: structure };
+      }
+      return i;
+    }));
   };
 
   const updateCohort = (cohort: Cohort) => {
@@ -206,12 +221,61 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setCohorts(prev => [...prev, cohort]);
   };
 
+  const submitItemForReview = (itemId: string, notes?: string) => {
+    setItems(prev => prev.map(i => {
+      if (i.id === itemId) {
+        return {
+          ...i,
+          status: 'IN_REVIEW',
+          submittedAt: new Date().toISOString(),
+          reviewNotes: notes || i.reviewNotes
+        };
+      }
+      return i;
+    }));
+  };
+
+  const approveItem = (itemId: string, notes?: string) => {
+    setItems(prev => prev.map(i => {
+      if (i.id === itemId) {
+        return {
+          ...i,
+          status: 'PUBLISHED',
+          reviewedAt: new Date().toISOString(),
+          lastPublishedAt: new Date().toISOString(),
+          reviewNotes: notes || i.reviewNotes
+        };
+      }
+      return i;
+    }));
+  };
+
+  const rejectItem = (itemId: string, notes?: string) => {
+    setItems(prev => prev.map(i => {
+      if (i.id === itemId) {
+        return {
+          ...i,
+          status: 'DRAFT',
+          reviewedAt: new Date().toISOString(),
+          reviewNotes: notes || i.reviewNotes
+        };
+      }
+      return i;
+    }));
+  };
+
+  const updateUser = (updates: Partial<User>) => {
+    if (!user) return;
+    setUser({ ...user, ...updates });
+  };
+
   return (
-    <StoreContext.Provider value={{ 
+    <StoreContext.Provider value={{
       user, enrollments, items, modules, quizzes, cohorts,
-      login, signup, logout, enroll, unenroll, 
+      login, signup, logout, enroll, unenroll,
       getEnrollment, checkPrerequisites, completeModule, completeByte, submitAssessment,
-      updateItem, createItem, deleteItem, saveCourseStructure, updateCohort, createCohort
+      updateItem, createItem, deleteItem, saveCourseStructure, updateCohort, createCohort,
+      submitItemForReview, approveItem, rejectItem, updateUser
     }}>
       {children}
     </StoreContext.Provider>

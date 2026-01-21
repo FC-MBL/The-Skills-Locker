@@ -4,7 +4,7 @@ export type AssessmentStatus = "NOT_REQUIRED" | "NOT_STARTED" | "IN_PROGRESS" | 
 export type ModuleType = "VIDEO" | "READING" | "ACTIVITY";
 
 // Admin & Auth Types
-export type UserRole = "ADMIN" | "EDITOR" | "REVIEWER" | "ASSESSOR" | "LEARNER";
+export type UserRole = "ADMIN" | "EDITOR" | "REVIEWER" | "ASSESSOR" | "CONTRIBUTOR" | "LEARNER";
 export type ContentStatus = "DRAFT" | "IN_REVIEW" | "PUBLISHED";
 
 export interface Domain {
@@ -14,7 +14,7 @@ export interface Domain {
 }
 
 // Deep Content Structure for Builder
-export type BlockType = "VIDEO" | "TEXT" | "FILE" | "CHECKLIST" | "REFLECTION" | "LINK" | "QUIZ" | "ASSIGNMENT";
+export type BlockType = "VIDEO" | "TEXT" | "FILE" | "CHECKLIST" | "REFLECTION" | "LINK" | "QUIZ" | "ASSIGNMENT" | "SCORM";
 
 export interface Block {
   id: string;
@@ -53,6 +53,11 @@ export interface Item {
   prerequisites: string[];
   popularityScore?: number;
   createdAt?: string;
+  createdById?: string;
+  createdByName?: string;
+  submittedAt?: string;
+  reviewedAt?: string;
+  reviewNotes?: string;
   image: string;
   price: number;
   // Admin Fields
@@ -60,7 +65,7 @@ export interface Item {
   versionNumber: number;
   lastPublishedAt?: string;
   changelog?: string[];
-  contentStructure?: CourseModule[]; 
+  contentStructure?: CourseModule[];
 }
 
 // Legacy flat module structure support (for transition)
@@ -97,6 +102,9 @@ export interface User {
   name: string;
   email: string;
   role: UserRole;
+  title?: string;
+  expertise?: string;
+  avatarUrl?: string;
 }
 
 export interface Enrollment {

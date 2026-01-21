@@ -5,22 +5,26 @@ export const ADMIN_USERS: User[] = [
   { id: 'editor1', name: 'Mike Editor', email: 'mike@skills.com', role: 'EDITOR' },
 ];
 
+export const CONTRIBUTOR_USERS: User[] = [
+  { id: 'contrib1', name: 'Taylor Contributor', email: 'taylor@skills.com', role: 'CONTRIBUTOR' },
+];
+
 export const COHORTS: Cohort[] = [
-  { 
-    id: 'c_summer_23', 
-    name: 'Summer 2023 Intake', 
-    courseIds: ['short_sc_1', 'short_fitbiz_1'], 
-    userIds: ['u1'], 
-    startDate: '2023-11-01', 
-    status: 'ACTIVE' 
+  {
+    id: 'c_summer_23',
+    name: 'Summer 2023 Intake',
+    courseIds: ['short_sc_1', 'short_fitbiz_1'],
+    userIds: ['u1'],
+    startDate: '2023-11-01',
+    status: 'ACTIVE'
   },
-  { 
-    id: 'c_winter_24', 
-    name: 'Winter 2024 Intake', 
-    courseIds: ['short_sc_1'], 
-    userIds: [], 
-    startDate: '2024-06-01', 
-    status: 'UPCOMING' 
+  {
+    id: 'c_winter_24',
+    name: 'Winter 2024 Intake',
+    courseIds: ['short_sc_1'],
+    userIds: [],
+    startDate: '2024-06-01',
+    status: 'UPCOMING'
   }
 ];
 
@@ -55,7 +59,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Understand industry standards', 'Identify career paths', 'Learn ASCA role'],
     prerequisites: [],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=1',
+    image: '/images/courses/Heading (1).png',
     price: 0
   },
   {
@@ -69,7 +73,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Define supercompensation', 'Map training cycles', 'Optimize timing'],
     prerequisites: ['byte_sc_1'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=2',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -83,7 +87,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Plan deloads', 'Recognize overtraining', 'Structure recovery'],
     prerequisites: ['byte_sc_2'],
     popularityScore: 85,
-    image: 'https://picsum.photos/400/300?random=3',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -97,7 +101,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Use external cues', 'Refine internal cues', 'Improve communication'],
     prerequisites: ['byte_sc_3'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=4',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -111,7 +115,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Design macrocycles', 'Structure mesocycles', 'Plan microcycles'],
     prerequisites: ['byte_sc_4'],
     popularityScore: 94,
-    image: 'https://picsum.photos/400/300?random=5',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -125,7 +129,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Identify energy demands', 'Program intervals', 'Assess capacity'],
     prerequisites: ['micro_sc_1'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=6',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -139,7 +143,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Program for strength', 'Teach main lifts', 'Ensure safety'],
     prerequisites: ['micro_sc_2'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=7',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -153,7 +157,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Drill speed mechanics', 'Build endurance', 'Monitor fatigue'],
     prerequisites: ['micro_sc_3'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=8',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -167,7 +171,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Coach agility', 'Improve balance', 'Enhance coordination'],
     prerequisites: ['micro_sc_4'],
     popularityScore: 86,
-    image: 'https://picsum.photos/400/300?random=9',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -181,7 +185,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Implement protocols', 'Advise on sleep', 'Manage nutrition'],
     prerequisites: ['micro_sc_5'],
     popularityScore: 93,
-    image: 'https://picsum.photos/400/300?random=10',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -195,7 +199,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Create annual plans', 'Manage athlete loads', 'Adjust for competition', 'Present periodization models'],
     prerequisites: ['micro_sc_1', 'micro_sc_2'],
     popularityScore: 98,
-    image: 'https://picsum.photos/400/300?random=11',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -211,7 +215,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Calculate TDEE', 'Explain energy balance', 'Assess metabolism'],
     prerequisites: [],
     popularityScore: 85,
-    image: 'https://picsum.photos/400/300?random=12',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -225,7 +229,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Set protein targets', 'Balance fats/carbs', 'Adjust for goals'],
     prerequisites: ['byte_nut_1'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=13',
+    image: '/images/courses/Heading (2).png',
     price: 120
   },
   {
@@ -239,7 +243,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Recommend intake', 'Understand synthesis', 'Source quality protein'],
     prerequisites: ['micro_nut_1'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=14',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -253,7 +257,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Explain GI/GL', 'Choose carb sources', 'Time nutrient intake'],
     prerequisites: ['micro_nut_2'],
     popularityScore: 84,
-    image: 'https://picsum.photos/400/300?random=15',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -267,7 +271,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Design fat loss phases', 'Manage diet breaks', 'Support behavior change', 'Monitor progress'],
     prerequisites: ['micro_nut_1', 'micro_nut_2'],
     popularityScore: 95,
-    image: 'https://picsum.photos/400/300?random=16',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
   {
@@ -281,7 +285,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Fuel for growth', 'Optimize post-workout', 'Supplement wisely', 'Adjust surplus'],
     prerequisites: ['micro_nut_1', 'micro_nut_2'],
     popularityScore: 94,
-    image: 'https://picsum.photos/400/300?random=17',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -297,7 +301,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Understand legalities', 'Manage taxes basics', 'Set rates'],
     prerequisites: [],
     popularityScore: 82,
-    image: 'https://picsum.photos/400/300?random=18',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -311,7 +315,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Identify roles', 'Prepare resume', 'Ace interviews'],
     prerequisites: ['byte_fitbiz_1'],
     popularityScore: 80,
-    image: 'https://picsum.photos/400/300?random=19',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -325,7 +329,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Define avatar', 'Analyze market', 'Position services'],
     prerequisites: ['byte_fitbiz_2'],
     popularityScore: 85,
-    image: 'https://picsum.photos/400/300?random=20',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -339,7 +343,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Register business', 'Set up banking', 'Create brand identity'],
     prerequisites: ['byte_fitbiz_3'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=21',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -353,7 +357,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Select software', 'Use wearables', 'Automate tasks'],
     prerequisites: ['micro_fitbiz_1'],
     popularityScore: 86,
-    image: 'https://picsum.photos/400/300?random=22',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -367,7 +371,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Generate leads', 'Close sales', 'Improve retention'],
     prerequisites: ['micro_fitbiz_2'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=23',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -381,7 +385,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Set 90-day goals', 'Build client base', 'Establish routine'],
     prerequisites: ['micro_fitbiz_3'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=24',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -395,7 +399,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Plan career path', 'Manage work-life', 'Diversify income'],
     prerequisites: ['micro_fitbiz_4'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=25',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -409,7 +413,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Build SOPs', 'Scale operations', 'Hire staff', 'Automate marketing'],
     prerequisites: ['micro_fitbiz_1', 'micro_fitbiz_2'],
     popularityScore: 93,
-    image: 'https://picsum.photos/400/300?random=26',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -425,7 +429,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Analyze market', 'Assess skills', 'Determine costs'],
     prerequisites: [],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=27',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -439,7 +443,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Use video feedback', 'Manage check-ins', 'Build community'],
     prerequisites: ['byte_online_1'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=28',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -453,7 +457,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Design challenges', 'Create content', 'Structure programs'],
     prerequisites: ['micro_online_1'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=29',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -467,7 +471,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Determine pricing', 'Create packages', 'Handle objections'],
     prerequisites: ['micro_online_2'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=30',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -481,7 +485,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Boost retention', 'Gather testimonials', 'Upsell services'],
     prerequisites: ['micro_online_3'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=31',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -495,7 +499,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Launch business', 'Scale ads', 'Automate delivery', 'Build brand'],
     prerequisites: ['micro_online_1', 'micro_online_2'],
     popularityScore: 96,
-    image: 'https://picsum.photos/400/300?random=32',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -511,7 +515,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Define AI in fitness', 'Identify trends', 'Assess opportunities'],
     prerequisites: [],
     popularityScore: 95,
-    image: 'https://picsum.photos/400/300?random=33',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -525,7 +529,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Use chatbots', 'Automate admin', 'Personalize plans'],
     prerequisites: ['byte_ai_1'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=34',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -539,7 +543,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Calculate ROI', 'Optimize systems', 'Save time'],
     prerequisites: ['byte_ai_2'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=35',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -553,7 +557,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Generate programs', 'Analyze progress', 'Adapt variables'],
     prerequisites: ['byte_ai_3'],
     popularityScore: 94,
-    image: 'https://picsum.photos/400/300?random=36',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -567,7 +571,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Integrate tools', 'Scale operations', 'Enhance service'],
     prerequisites: ['micro_ai_1'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=37',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
 
@@ -583,7 +587,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Explain benefits', 'Understand conditions', 'Apply safety'],
     prerequisites: [],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=38',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -597,7 +601,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Identify signs', 'Approach clients', 'Listen actively'],
     prerequisites: ['byte_mh_1'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=39',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -611,7 +615,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Define anxiety', 'Define depression', 'Understand scope'],
     prerequisites: ['byte_mh_2'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=40',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -625,7 +629,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Build network', 'Refer effectively', 'Maintain boundaries'],
     prerequisites: ['byte_mh_3'],
     popularityScore: 85,
-    image: 'https://picsum.photos/400/300?random=41',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -639,7 +643,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Apply first aid', 'Create safe space', 'Communicate empathy'],
     prerequisites: ['byte_mh_4'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=42',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -653,7 +657,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Program for mood', 'Adjust intensity', 'Monitor response'],
     prerequisites: ['micro_mh_1'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=43',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -667,7 +671,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Coach resilience', 'Set challenges', 'Debrief sessions'],
     prerequisites: ['micro_mh_2'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=44',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -681,7 +685,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Teach relaxation', 'Practice self-care', 'Manage burnout'],
     prerequisites: ['micro_mh_3'],
     popularityScore: 86,
-    image: 'https://picsum.photos/400/300?random=45',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -695,7 +699,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Recognize crises', 'Respond to suicide', 'Support recovery', 'Apply ALGEE'],
     prerequisites: ['micro_mh_1', 'micro_mh_2'],
     popularityScore: 96,
-    image: 'https://picsum.photos/400/300?random=46',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -711,7 +715,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Define mindset', 'Connect to results', 'Integrate into PT'],
     prerequisites: [],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=47',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -725,7 +729,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Analyze discipline', 'Apply ownership', 'Teach resilience'],
     prerequisites: ['byte_mind_1'],
     popularityScore: 93,
-    image: 'https://picsum.photos/400/300?random=48',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -739,7 +743,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Assess readiness', 'Use scales', 'Identify drivers'],
     prerequisites: ['byte_mind_2'],
     popularityScore: 86,
-    image: 'https://picsum.photos/400/300?random=49',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -753,7 +757,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Identify types', 'Adapt style', 'Improve rapport'],
     prerequisites: ['byte_mind_3'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=50',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -767,7 +771,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Apply CBT basics', 'Facilitate change', 'Overcome barriers'],
     prerequisites: ['byte_mind_4'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=51',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -781,7 +785,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Build autonomy', 'Foster mastery', 'Set effective goals'],
     prerequisites: ['micro_mind_1'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=52',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -795,7 +799,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Explain habit loops', 'Design cues', 'Stack habits'],
     prerequisites: ['micro_mind_2'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=53',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -809,7 +813,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Visualize success', 'Manage arousal', 'Focus attention'],
     prerequisites: ['micro_mind_3'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=54',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -823,7 +827,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Use reframing', 'Anchor states', 'Mirror and match'],
     prerequisites: ['micro_mind_4'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=55',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
 
@@ -839,7 +843,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Cite statistics', 'Understand impact', 'Identify trends'],
     prerequisites: [],
     popularityScore: 84,
-    image: 'https://picsum.photos/400/300?random=56',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -853,7 +857,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Define wellness', 'Contrast fitness', 'Holistic view'],
     prerequisites: ['byte_health_1'],
     popularityScore: 86,
-    image: 'https://picsum.photos/400/300?random=57',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -867,7 +871,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Understand causes', 'Program for weight loss', 'Address stigma'],
     prerequisites: ['byte_health_2'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=58',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -881,7 +885,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Modify intensity', 'Monitor contraindications', 'Improve heart health'],
     prerequisites: ['micro_health_1'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=59',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -895,7 +899,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Manage dyspnea', 'Improve capacity', 'Ensure safety'],
     prerequisites: ['micro_health_2'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=60',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -909,7 +913,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Modify for pain', 'Strengthen joints', 'Prevent falls'],
     prerequisites: ['micro_health_3'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=61',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -923,7 +927,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Manage blood sugar', 'Program for insulin', 'Reduce risk'],
     prerequisites: ['micro_health_4'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=62',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
 
@@ -939,7 +943,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Identify risks', 'Modify exercises', 'Ensure safety'],
     prerequisites: [],
     popularityScore: 94,
-    image: 'https://picsum.photos/400/300?random=63',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -953,7 +957,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Track cycle phases', 'Adjust intensity', 'Optimize performance'],
     prerequisites: ['byte_women_1'],
     popularityScore: 93,
-    image: 'https://picsum.photos/400/300?random=64',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -967,7 +971,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Program for phases', 'Manage fatigue', 'Support recovery'],
     prerequisites: ['byte_women_2'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=65',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -981,7 +985,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Understand PCOS', 'Manage endometriosis symptoms', 'Support hormonal health'],
     prerequisites: ['micro_women_1'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=66',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -995,7 +999,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Screen clients', 'Program safely', 'Restore core function'],
     prerequisites: ['micro_women_2'],
     popularityScore: 95,
-    image: 'https://picsum.photos/400/300?random=67',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1009,7 +1013,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Master female physiology', 'Specialize in women\'s fitness', 'Build client base', 'Create safe environments'],
     prerequisites: ['micro_women_1', 'micro_women_2'],
     popularityScore: 97,
-    image: 'https://picsum.photos/400/300?random=68',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -1025,7 +1029,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Understand disability', 'Learn terminology', 'Respect autonomy'],
     prerequisites: [],
     popularityScore: 85,
-    image: 'https://picsum.photos/400/300?random=69',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1039,7 +1043,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Identify impact', 'Engage effectively', 'Build inclusive habits'],
     prerequisites: ['byte_disability_1'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=70',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
 
@@ -1055,7 +1059,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Wrap hands', 'Throw basic punches', 'Ensure safety'],
     prerequisites: [],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=71',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1069,7 +1073,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Set up straps', 'Understand leverage', 'Modify difficulty'],
     prerequisites: ['byte_func_1'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=72',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1083,7 +1087,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Teach the swing', 'Correct form', 'Select weights'],
     prerequisites: ['byte_func_2'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=73',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1097,7 +1101,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Use waves/slams', 'Program intervals', 'Coach intensity'],
     prerequisites: ['byte_func_3'],
     popularityScore: 85,
-    image: 'https://picsum.photos/400/300?random=74',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1111,7 +1115,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Select bands', 'Modify exercises', 'Add resistance'],
     prerequisites: ['byte_func_4'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=75',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1125,7 +1129,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Hold a mace', 'Perform 360s', 'Build grip strength'],
     prerequisites: ['byte_func_5'],
     popularityScore: 83,
-    image: 'https://picsum.photos/400/300?random=76',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1139,7 +1143,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Build combos', 'Improve footwork', 'Increase cardio'],
     prerequisites: ['byte_func_6'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=77',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1153,7 +1157,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Advance progressions', 'Coach suspension', 'Build core strength'],
     prerequisites: ['micro_func_1'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=78',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1167,7 +1171,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Clean and press', 'Snatch technique', 'Flow sequences'],
     prerequisites: ['micro_func_2'],
     popularityScore: 93,
-    image: 'https://picsum.photos/400/300?random=79',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1181,7 +1185,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Advanced waves', 'Combine movements', 'Build power'],
     prerequisites: ['micro_func_3'],
     popularityScore: 84,
-    image: 'https://picsum.photos/400/300?random=80',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1195,7 +1199,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Band resistance', 'Accommodating resistance', 'Rehab basics'],
     prerequisites: ['micro_func_4'],
     popularityScore: 86,
-    image: 'https://picsum.photos/400/300?random=81',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1209,7 +1213,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Run boxing classes', 'Master mitt work', 'Ensure safety', 'Program rounds'],
     prerequisites: ['micro_func_1', 'micro_func_2'],
     popularityScore: 94,
-    image: 'https://picsum.photos/400/300?random=82',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
   {
@@ -1223,7 +1227,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Design suspension classes', 'Correct form', 'Modify for injuries', 'Teach progressions'],
     prerequisites: ['micro_func_1', 'micro_func_2'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=83',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
   {
@@ -1237,7 +1241,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Teach KB classes', 'Master programming', 'Coach complex lifts', 'Ensure safety'],
     prerequisites: ['micro_func_1', 'micro_func_2'],
     popularityScore: 95,
-    image: 'https://picsum.photos/400/300?random=84',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -1253,7 +1257,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Identify mechanisms', 'Apply to training', 'Balance variables'],
     prerequisites: [],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=85',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1267,7 +1271,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Explain synthesis', 'Understand satellite cells', 'Optimize recovery'],
     prerequisites: ['byte_hyper_1'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=86',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1281,7 +1285,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Analyze case studies', 'Select techniques', 'Review results'],
     prerequisites: ['byte_hyper_2'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=87',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1295,7 +1299,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Program reps/sets', 'Calculate volume', 'Apply progressive overload'],
     prerequisites: ['byte_hyper_3'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=88',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1309,7 +1313,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Periodize for size', 'Avoid plateaus', 'Manage fatigue'],
     prerequisites: ['micro_hyper_1'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=89',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1323,7 +1327,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Manipulate tempo', 'Understand TUT', 'Coach control'],
     prerequisites: ['micro_hyper_2'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=90',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1337,7 +1341,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Design splits', 'Optimize frequency', 'Balance body parts'],
     prerequisites: ['micro_hyper_3'],
     popularityScore: 93,
-    image: 'https://picsum.photos/400/300?random=91',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
 
@@ -1353,7 +1357,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Distinguish disciplines', 'Identify key lifts', 'Understand goals'],
     prerequisites: [],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=92',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1367,7 +1371,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Apply to daily life', 'Enhance sport speed', 'Explain benefits'],
     prerequisites: ['byte_power_1'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=93',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1381,7 +1385,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Ensure safety', 'Program basics', 'Assess readiness'],
     prerequisites: ['byte_power_2'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=94',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1395,7 +1399,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Coach box jumps', 'Teach med ball throws', 'Correct form'],
     prerequisites: ['micro_power_1'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=95',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1409,7 +1413,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Perform hang clean', 'Execute power snatch', 'Drill positions'],
     prerequisites: ['micro_power_2'],
     popularityScore: 94,
-    image: 'https://picsum.photos/400/300?random=96',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1423,7 +1427,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Program plyometrics', 'Progress intensity', 'Minimize ground contact'],
     prerequisites: ['micro_power_3'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=97',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1437,7 +1441,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Measure velocity', 'Adjust loads', 'Target specific traits'],
     prerequisites: ['micro_power_4'],
     popularityScore: 87,
-    image: 'https://picsum.photos/400/300?random=98',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1451,7 +1455,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Coach full lifts', 'Correct faults', 'Program for competition', 'Manage injuries'],
     prerequisites: ['micro_power_1', 'micro_power_2'],
     popularityScore: 96,
-    image: 'https://picsum.photos/400/300?random=99',
+    image: '/images/courses/Heading (3).png',
     price: 499
   },
 
@@ -1467,7 +1471,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['List benefits', 'Mitigate challenges', 'Sell the concept'],
     prerequisites: [],
     popularityScore: 85,
-    image: 'https://picsum.photos/400/300?random=100',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1481,7 +1485,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Scale pushups', 'Modify squats', 'Challenge advanced clients'],
     prerequisites: ['byte_outdoor_1'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=101',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1495,7 +1499,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Run Tabata', 'Time intervals', 'Manage flow'],
     prerequisites: ['byte_outdoor_2'],
     popularityScore: 86,
-    image: 'https://picsum.photos/400/300?random=102',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1509,7 +1513,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Use park benches', 'Utilize hills', 'Incorporate bands'],
     prerequisites: ['byte_outdoor_3'],
     popularityScore: 84,
-    image: 'https://picsum.photos/400/300?random=103',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1523,7 +1527,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Analyze case studies', 'Adapt ideas', 'innovate programming'],
     prerequisites: ['byte_outdoor_4'],
     popularityScore: 83,
-    image: 'https://picsum.photos/400/300?random=104',
+    image: '/images/courses/Heading (3).png',
     price: 0
   },
   {
@@ -1537,7 +1541,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Assess risk', 'Plan for heat/cold', 'Ensure hydration'],
     prerequisites: ['byte_outdoor_5'],
     popularityScore: 90,
-    image: 'https://picsum.photos/400/300?random=105',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1551,7 +1555,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Periodize groups', 'Balance intensity', 'Retain members'],
     prerequisites: ['micro_outdoor_1'],
     popularityScore: 91,
-    image: 'https://picsum.photos/400/300?random=106',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1565,7 +1569,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Master bodyweight', 'Use partner drills', 'Maximize space'],
     prerequisites: ['micro_outdoor_2'],
     popularityScore: 89,
-    image: 'https://picsum.photos/400/300?random=107',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1579,7 +1583,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Market bootcamp', 'Manage signups', 'Create community'],
     prerequisites: ['micro_outdoor_3'],
     popularityScore: 92,
-    image: 'https://picsum.photos/400/300?random=108',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1593,7 +1597,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Run YGIG', 'Program EMOMs', 'Design ladders'],
     prerequisites: ['micro_outdoor_4'],
     popularityScore: 88,
-    image: 'https://picsum.photos/400/300?random=109',
+    image: '/images/courses/Heading (3).png',
     price: 120
   },
   {
@@ -1607,7 +1611,7 @@ const RAW_ITEMS: Omit<Item, 'status' | 'versionNumber'>[] = [
     outcomes: ['Lead large groups', 'Manage safety', 'Scale business', 'Create culture'],
     prerequisites: ['micro_outdoor_1', 'micro_outdoor_2'],
     popularityScore: 95,
-    image: 'https://picsum.photos/400/300?random=110',
+    image: '/images/courses/Heading (3).png',
     price: 499
   }
 ];
@@ -1622,43 +1626,43 @@ export const ITEMS: Item[] = RAW_ITEMS.map(item => ({
 }));
 
 export const MODULES: Module[] = [
-    // Modules for 'Periodisation & Planning' (short_sc_1)
-    { id: 'm-sc1-1', itemId: 'short_sc_1', title: 'The Macrocycle View', order: 1, type: 'VIDEO', estimatedMinutes: 45 },
-    { id: 'm-sc1-2', itemId: 'short_sc_1', title: 'Mesocycle Structures', order: 2, type: 'READING', estimatedMinutes: 60 },
-    { id: 'm-sc1-3', itemId: 'short_sc_1', title: 'Microcycle Variation', order: 3, type: 'VIDEO', estimatedMinutes: 40 },
-    { id: 'm-sc1-4', itemId: 'short_sc_1', title: 'Case Study Assignment', order: 4, type: 'ACTIVITY', estimatedMinutes: 90 },
+  // Modules for 'Periodisation & Planning' (short_sc_1)
+  { id: 'm-sc1-1', itemId: 'short_sc_1', title: 'The Macrocycle View', order: 1, type: 'VIDEO', estimatedMinutes: 45 },
+  { id: 'm-sc1-2', itemId: 'short_sc_1', title: 'Mesocycle Structures', order: 2, type: 'READING', estimatedMinutes: 60 },
+  { id: 'm-sc1-3', itemId: 'short_sc_1', title: 'Microcycle Variation', order: 3, type: 'VIDEO', estimatedMinutes: 40 },
+  { id: 'm-sc1-4', itemId: 'short_sc_1', title: 'Case Study Assignment', order: 4, type: 'ACTIVITY', estimatedMinutes: 90 },
 
-    // Modules for 'Systemised Personal Training' (short_fitbiz_1)
-    { id: 'm-fb1-1', itemId: 'short_fitbiz_1', title: 'Defining Your SOPs', order: 1, type: 'VIDEO', estimatedMinutes: 30 },
-    { id: 'm-fb1-2', itemId: 'short_fitbiz_1', title: 'Automation Tools', order: 2, type: 'READING', estimatedMinutes: 45 },
-    { id: 'm-fb1-3', itemId: 'short_fitbiz_1', title: 'Client Onboarding Flow', order: 3, type: 'ACTIVITY', estimatedMinutes: 60 },
+  // Modules for 'Systemised Personal Training' (short_fitbiz_1)
+  { id: 'm-fb1-1', itemId: 'short_fitbiz_1', title: 'Defining Your SOPs', order: 1, type: 'VIDEO', estimatedMinutes: 30 },
+  { id: 'm-fb1-2', itemId: 'short_fitbiz_1', title: 'Automation Tools', order: 2, type: 'READING', estimatedMinutes: 45 },
+  { id: 'm-fb1-3', itemId: 'short_fitbiz_1', title: 'Client Onboarding Flow', order: 3, type: 'ACTIVITY', estimatedMinutes: 60 },
 ];
 
 export const QUIZZES: Quiz[] = [
-    // Quiz for 'Micros, Mesos & Macros' (micro_sc_1)
-    {
-        id: 'q-micro_sc_1',
-        itemId: 'micro_sc_1',
-        passMark: 80,
-        attemptsAllowed: 3,
-        timeLimitMinutes: 20,
-        questions: [
-            { id: 'q1', prompt: 'What is the largest training cycle?', options: ['Microcycle', 'Mesocycle', 'Macrocycle', 'Bicycle'], correctIndex: 2, tags: ['planning', 'basics'] },
-            { id: 'q2', prompt: 'How long is a typical microcycle?', options: ['1 day', '1 week', '1 month', '1 year'], correctIndex: 1, tags: ['planning', 'timing'] },
-            { id: 'q3', prompt: 'What characterizes a mesocycle?', options: ['Specific training block', 'Single workout', 'Annual plan', 'Warmup'], correctIndex: 0, tags: ['planning'] },
-        ]
-    },
-    // Quiz for 'Periodisation & Planning' (short_sc_1)
-    {
-        id: 'q-short_sc_1',
-        itemId: 'short_sc_1',
-        passMark: 75,
-        attemptsAllowed: 2,
-        timeLimitMinutes: 45,
-        questions: [
-            { id: 'q1', prompt: 'Which phase emphasizes volume over intensity?', options: ['Competition', 'Peaking', 'General Prep', 'Rest'], correctIndex: 2 },
-            { id: 'q2', prompt: 'Tapering involves:', options: ['Increasing volume', 'Reducing fatigue', 'Eating more', 'Sleeping less'], correctIndex: 1 },
-            { id: 'q3', prompt: 'Linear periodization implies:', options: ['Random changes', 'Progressive overload', 'Daily undulation', 'No plan'], correctIndex: 1 },
-        ]
-    }
+  // Quiz for 'Micros, Mesos & Macros' (micro_sc_1)
+  {
+    id: 'q-micro_sc_1',
+    itemId: 'micro_sc_1',
+    passMark: 80,
+    attemptsAllowed: 3,
+    timeLimitMinutes: 20,
+    questions: [
+      { id: 'q1', prompt: 'What is the largest training cycle?', options: ['Microcycle', 'Mesocycle', 'Macrocycle', 'Bicycle'], correctIndex: 2, tags: ['planning', 'basics'] },
+      { id: 'q2', prompt: 'How long is a typical microcycle?', options: ['1 day', '1 week', '1 month', '1 year'], correctIndex: 1, tags: ['planning', 'timing'] },
+      { id: 'q3', prompt: 'What characterizes a mesocycle?', options: ['Specific training block', 'Single workout', 'Annual plan', 'Warmup'], correctIndex: 0, tags: ['planning'] },
+    ]
+  },
+  // Quiz for 'Periodisation & Planning' (short_sc_1)
+  {
+    id: 'q-short_sc_1',
+    itemId: 'short_sc_1',
+    passMark: 75,
+    attemptsAllowed: 2,
+    timeLimitMinutes: 45,
+    questions: [
+      { id: 'q1', prompt: 'Which phase emphasizes volume over intensity?', options: ['Competition', 'Peaking', 'General Prep', 'Rest'], correctIndex: 2 },
+      { id: 'q2', prompt: 'Tapering involves:', options: ['Increasing volume', 'Reducing fatigue', 'Eating more', 'Sleeping less'], correctIndex: 1 },
+      { id: 'q3', prompt: 'Linear periodization implies:', options: ['Random changes', 'Progressive overload', 'Daily undulation', 'No plan'], correctIndex: 1 },
+    ]
+  }
 ];

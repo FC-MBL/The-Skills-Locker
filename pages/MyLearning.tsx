@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useStore } from '../store';
-import { ITEMS } from '../data';
 import { Card, Badge, Button, ProgressBar } from '../components/UI';
 import { Link } from 'react-router-dom';
 import { Play } from 'lucide-react';
 
 export const MyLearning = () => {
-  const { enrollments } = useStore();
+  const { enrollments, items } = useStore();
   const [tab, setTab] = useState<'IN_PROGRESS' | 'COMPLETED'>('IN_PROGRESS');
 
   const filtered = enrollments.filter(e => 
@@ -43,7 +42,7 @@ export const MyLearning = () => {
             </div>
         ) : (
             filtered.map(enrollment => {
-                const item = ITEMS.find(i => i.id === enrollment.itemId);
+                const item = items.find(i => i.id === enrollment.itemId);
                 if (!item) return null;
 
                 return (

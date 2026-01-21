@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DOMAINS, ITEMS } from '../data';
+import { DOMAINS } from '../data';
 import { useStore } from '../store';
 import { Link } from 'react-router-dom';
 import { Lock, CheckCircle, Circle } from 'lucide-react';
@@ -34,7 +34,8 @@ export const SkillTree = () => {
   const [selectedDomain, setSelectedDomain] = useState<string>(DOMAINS[0].id);
 
   const domain = DOMAINS.find(d => d.id === selectedDomain);
-  const domainItems = ITEMS.filter(i => i.domainId === selectedDomain);
+  const { items } = useStore();
+  const domainItems = items.filter(i => i.status === 'PUBLISHED' && i.domainId === selectedDomain);
 
   // Group by Tier
   const bytes = domainItems.filter(i => i.tier === 'BYTE');

@@ -1,16 +1,21 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ITEMS } from '../data';
 import { useStore } from '../store';
 import { Badge, Button, Card } from '../components/UI';
 import { Clock, Check, Lock, Award, Play } from 'lucide-react';
 
 export const ItemDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const item = ITEMS.find(i => i.id === id);
-  const { enroll, getEnrollment, checkPrerequisites } = useStore();
+  const { items, user, enroll, getEnrollment, checkPrerequisites } = useStore();
+  const item = items.find(i => i.id === id);
 
   if (!item) return <div>Item not found</div>;
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'EDITOR';
+  const isContributor = user?.role === 'CONTRIBUTOR';
+  const canViewDraft = isAdmin || (isContributor && item.createdById === user?.id);
+  if (item.status !== 'PUBLISHED' && !canViewDraft) {
+    return <div className="p-8 text-slate-600">This course is not published yet.</div>;
+  }
 
   const enrollment = getEnrollment(item.id);
   const isUnlocked = checkPrerequisites(item.id);
@@ -58,7 +63,7 @@ export const ItemDetail = () => {
                  <h3 className="font-display uppercase text-lg mb-4 text-blue-900">Prerequisites</h3>
                  <div className="flex gap-4">
                     {item.prerequisites.map(pid => {
-                        const pItem = ITEMS.find(i => i.id === pid);
+                        const pItem = items.find(i => i.id === pid);
                         return (
                             <div key={pid} className="flex items-center gap-3 bg-white p-3 rounded-lg shadow-sm">
                                 <span className="text-sm font-bold">{pItem?.title}</span>

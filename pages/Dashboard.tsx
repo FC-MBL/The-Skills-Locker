@@ -1,12 +1,11 @@
 import React from 'react';
 import { useStore } from '../store';
-import { ITEMS } from '../data';
 import { Link } from 'react-router-dom';
 import { Button, Card, ProgressRing, Badge } from '../components/UI';
 import { Play, Award, Zap } from 'lucide-react';
 
 export const Dashboard = () => {
-  const { user, enrollments } = useStore();
+  const { user, enrollments, items } = useStore();
 
   const activeEnrollments = enrollments.filter(e => e.status === 'IN_PROGRESS' || e.status === 'ENROLLED');
   const completedEnrollments = enrollments.filter(e => e.status === 'COMPLETED');
@@ -64,7 +63,7 @@ export const Dashboard = () => {
           ) : (
             <div className="grid md:grid-cols-3 gap-6">
               {activeEnrollments.slice(0, 3).map(enrollment => {
-                const item = ITEMS.find(i => i.id === enrollment.itemId);
+                const item = items.find(i => i.id === enrollment.itemId);
                 if (!item) return null;
                 return (
                   <Card key={item.id} className="flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
@@ -101,7 +100,7 @@ export const Dashboard = () => {
              <h2 className="text-2xl font-display uppercase text-slate-800 mb-6">Your Credentials</h2>
              <div className="grid md:grid-cols-2 gap-4">
                {completedEnrollments.filter(e => e.credentialIssued).map(enrollment => {
-                 const item = ITEMS.find(i => i.id === enrollment.itemId);
+                 const item = items.find(i => i.id === enrollment.itemId);
                  if(!item) return null;
                  return (
                    <div key={item.id} className="bg-slate-900 text-white p-6 rounded-xl flex items-center justify-between">

@@ -8,6 +8,7 @@ export const AdminDashboard = () => {
 
   const published = items.filter(i => i.status === 'PUBLISHED').length;
   const draft = items.filter(i => i.status === 'DRAFT').length;
+  const inReview = items.filter(i => i.status === 'IN_REVIEW').length;
   const activeCohorts = cohorts.filter(c => c.status === 'ACTIVE').length;
   
   return (
@@ -24,7 +25,7 @@ export const AdminDashboard = () => {
                  <Book className="text-blue-500" />
              </div>
              <div className="mt-4 text-xs text-slate-400">
-                 {published} Published • {draft} Drafts
+                 {published} Published • {draft} Drafts • {inReview} In Review
              </div>
          </Card>
 

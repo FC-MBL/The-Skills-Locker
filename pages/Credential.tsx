@@ -1,14 +1,13 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ITEMS } from '../data';
 import { useStore } from '../store';
 import { Button } from '../components/UI';
 import { Share2, Download, Linkedin } from 'lucide-react';
 
 export const Credential = () => {
   const { id } = useParams<{ id: string }>();
-  const { user, getEnrollment } = useStore();
-  const item = ITEMS.find(i => i.id === id);
+  const { user, getEnrollment, items } = useStore();
+  const item = items.find(i => i.id === id);
 
   if (!item || !user) return <div>Data missing</div>;
   const enrollment = getEnrollment(item.id);

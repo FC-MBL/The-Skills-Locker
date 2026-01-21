@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ITEMS, QUIZZES } from '../data';
 import { useStore } from '../store';
 import { Button } from '../components/UI';
-import { Clock, AlertCircle } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 export const Assessment = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { submitAssessment, getEnrollment } = useStore();
+  const { submitAssessment, items, quizzes, user } = useStore();
   
   const [started, setStarted] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -16,10 +15,16 @@ export const Assessment = () => {
   const [finished, setFinished] = useState(false);
   const [result, setResult] = useState<{ passed: boolean; credentialIssued: boolean } | null>(null);
 
-  const item = ITEMS.find(i => i.id === id);
-  const quiz = QUIZZES.find(q => q.itemId === id);
+  const item = items.find(i => i.id === id);
+  const quiz = quizzes.find(q => q.itemId === id);
 
   if (!item || !quiz) return <div>Quiz not found</div>;
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'EDITOR';
+  const isContributor = user?.role === 'CONTRIBUTOR';
+  const canViewDraft = isAdmin || (isContributor && item.createdById === user?.id);
+  if (item.status !== 'PUBLISHED' && !canViewDraft) {
+    return <div className="p-8 text-slate-600">This course is not published yet.</div>;
+  }
 
   const handleAnswer = (optionIndex: number) => {
     const newAnswers = [...answers];
