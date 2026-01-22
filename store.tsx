@@ -47,6 +47,25 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [modules, setModules] = useState<Module[]>(MODULES);
   const [quizzes, setQuizzes] = useState<Quiz[]>(QUIZZES);
 
+  useEffect(() => {
+    const stored = localStorage.getItem('skills-locker-user');
+    if (stored) {
+      try {
+        setUser(JSON.parse(stored) as User);
+      } catch {
+        localStorage.removeItem('skills-locker-user');
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('skills-locker-user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('skills-locker-user');
+    }
+  }, [user]);
+
   const login = (email: string) => {
     // Check if admin
     const adminUser = ADMIN_USERS.find(u => u.email === email);

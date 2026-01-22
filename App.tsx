@@ -28,6 +28,7 @@ import { Submissions } from './pages/admin/Submissions';
 import { BuilderDashboard } from './pages/contributor/BuilderDashboard';
 import { BuilderMetadata } from './pages/contributor/BuilderMetadata';
 import { BuilderCourseBuilder } from './pages/contributor/BuilderCourseBuilder';
+import { CreateCourseRedirect } from './pages/contributor/CreateCourseRedirect';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useStore();
@@ -78,11 +79,12 @@ const App: React.FC = () => {
         {/* Question Bank placeholder reused for now or could be separate */}
         <Route path="/admin/question-bank" element={<AdminRoute><div className="p-8 font-bold">Question Bank Under Construction</div></AdminRoute>} />
 
-        {/* Contributor Routes */}
-        <Route path="/contribute" element={<ContributorRoute><BuilderDashboard /></ContributorRoute>} />
-        <Route path="/contribute/:courseId/metadata" element={<ContributorRoute><BuilderMetadata /></ContributorRoute>} />
-        <Route path="/contribute/:courseId/structure" element={<ContributorRoute><BuilderCourseBuilder /></ContributorRoute>} />
-      </Routes>
+          {/* Contributor Routes */}
+          <Route path="/contribute" element={<ContributorRoute><BuilderDashboard /></ContributorRoute>} />
+          <Route path="/contribute/new" element={<ContributorRoute><CreateCourseRedirect /></ContributorRoute>} />
+          <Route path="/contribute/:courseId/metadata" element={<ContributorRoute><BuilderMetadata /></ContributorRoute>} />
+          <Route path="/contribute/:courseId/structure" element={<ContributorRoute><BuilderCourseBuilder /></ContributorRoute>} />
+        </Routes>
     </Router>
   );
 };

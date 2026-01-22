@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCourseBuilder } from '../../context/CourseBuilderContext';
 import { DOMAINS } from '../../data';
 import { Button, Input, Label, Select, TextArea, Card, FileUpload } from '../../components/builder/UI';
-import { ArrowLeft, Save, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Save, CheckCircle, Layout } from 'lucide-react';
 import { Tier } from '../../types';
 
 export const BuilderMetadata: React.FC = () => {
@@ -38,6 +38,11 @@ export const BuilderMetadata: React.FC = () => {
     handleChange('outcomes', [...formData.outcomes, '']);
   };
 
+  const handleSaveAndBuild = () => {
+    saveCourse(formData);
+    navigate(`/contribute/${formData.id}/structure`);
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 pb-20">
       <div className="mb-8 flex items-center justify-between">
@@ -57,7 +62,8 @@ export const BuilderMetadata: React.FC = () => {
               Saved {Math.floor((new Date().getTime() - lastSaved.getTime()) / 1000)}s ago
             </span>
           )}
-          <Button onClick={() => saveCourse(formData)} icon={Save}>Save Draft</Button>
+          <Button onClick={() => saveCourse(formData)} icon={Save} variant="outline">Save Draft</Button>
+          <Button onClick={handleSaveAndBuild} icon={Layout}>Save & Build</Button>
         </div>
       </div>
 
@@ -116,7 +122,7 @@ export const BuilderMetadata: React.FC = () => {
             <h3 className="font-display text-lg text-navy mb-4">Configuration</h3>
             <div className="space-y-4">
               <div>
-                <Label>Domain</Label>
+                <Label>Branch</Label>
                 <Select
                   value={formData.domainId}
                   onChange={(e) => handleChange('domainId', e.target.value)}

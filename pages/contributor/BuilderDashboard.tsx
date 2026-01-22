@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCourseBuilder } from '../../context/CourseBuilderContext';
+import { useStore } from '../../store';
 import { DOMAINS } from '../../data';
 import { Button, Badge, Card, Input, Select } from '../../components/builder/UI';
-import { Search, Plus, Edit3, Layout, Send, Award, Clock } from 'lucide-react';
+import { Search, Plus, Edit3, Layout, Send, Award, Clock, Trash2 } from 'lucide-react';
 
 export const BuilderDashboard: React.FC = () => {
   const { courses, user, createCourse, submitForReview } = useCourseBuilder();
+  const { deleteItem } = useStore();
   const navigate = useNavigate();
   const [filterStatus, setFilterStatus] = useState<string>('ALL');
+  const [filterBranch, setFilterBranch] = useState<string>('ALL');
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleCreate = () => {
@@ -19,8 +22,9 @@ export const BuilderDashboard: React.FC = () => {
   const contributorCourses = courses.filter(c => c.createdById === user?.id);
   const filteredCourses = contributorCourses.filter(c => {
     const matchStatus = filterStatus === 'ALL' || c.status === filterStatus;
+    const matchBranch = filterBranch === 'ALL' || c.domainId === filterBranch;
     const matchSearch = c.title.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchStatus && matchSearch;
+    return matchStatus && matchBranch && matchSearch;
   });
 
   const getDomainName = (id: string) => DOMAINS.find(d => d.id === id)?.name || 'Unknown';
@@ -46,6 +50,16 @@ export const BuilderDashboard: React.FC = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
+        <div className="w-full md:w-56">
+          <Select
+            value={filterBranch}
+            onChange={(e) => setFilterBranch(e.target.value)}
+            className="bg-gray-50 border-none"
+          >
+            <option value="ALL">All Branches</option>
+            {DOMAINS.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+          </Select>
         </div>
         <div className="w-full md:w-48">
           <Select
@@ -103,29 +117,44 @@ export const BuilderDashboard: React.FC = () => {
                 <h3 className="text-2xl font-display text-navy mb-2 leading-tight">{course.title}</h3>
                 <p className="text-gray-600 text-sm mb-6 line-clamp-2">{course.description || "No description provided."}</p>
 
-                <div className="mt-auto pt-6 border-t border-gray-100 grid grid-cols-3 gap-2">
-                  <button
-                    onClick={() => navigate(`/contribute/${course.id}/metadata`)}
-                    className="flex flex-col items-center justify-center gap-1 text-xs font-bold text-gray-500 hover:text-blue transition-colors py-2 rounded hover:bg-blue-50"
-                  >
-                    <Edit3 size={16} />
-                    METADATA
-                  </button>
-                  <button
-                    onClick={() => navigate(`/contribute/${course.id}/structure`)}
-                    className="flex flex-col items-center justify-center gap-1 text-xs font-bold text-gray-500 hover:text-blue transition-colors py-2 rounded hover:bg-blue-50"
-                  >
-                    <Layout size={16} />
-                    BUILDER
-                  </button>
-                  <button
-                    onClick={() => submitForReview(course.id)}
-                    className={`flex flex-col items-center justify-center gap-1 text-xs font-bold transition-colors py-2 rounded hover:bg-gray-50 ${course.status === 'PUBLISHED' ? 'text-green-600 opacity-50 cursor-default' : 'text-gray-500 hover:text-red'}`}
-                    disabled={course.status === 'PUBLISHED'}
-                  >
-                    <Send size={16} />
-                    {course.status === 'PUBLISHED' ? 'LIVE' : 'SUBMIT'}
-                  </button>
+                <div className="mt-auto pt-6 border-t border-gray-100 flex justify-between items-center">
+                  <div className="grid grid-cols-3 gap-2 flex-1">
+                    <button
+                      onClick={() => navigate(`/contribute/${course.id}/metadata`)}
+                      className="flex flex-col items-center justify-center gap-1 text-xs font-bold text-gray-500 hover:text-blue transition-colors py-2 rounded hover:bg-blue-50"
+                    >
+                      <Edit3 size={16} />
+                      METADATA
+                    </button>
+                    <button
+                      onClick={() => navigate(`/contribute/${course.id}/structure`)}
+                      className="flex flex-col items-center justify-center gap-1 text-xs font-bold text-gray-500 hover:text-blue transition-colors py-2 rounded hover:bg-blue-50"
+                    >
+                      <Layout size={16} />
+                      BUILDER
+                    </button>
+                    <button
+                      onClick={() => submitForReview(course.id)}
+                      className={`flex flex-col items-center justify-center gap-1 text-xs font-bold transition-colors py-2 rounded hover:bg-gray-50 ${course.status === 'PUBLISHED' ? 'text-green-600 opacity-50 cursor-default' : 'text-gray-500 hover:text-red'}`}
+                      disabled={course.status === 'PUBLISHED'}
+                    >
+                      <Send size={16} />
+                      {course.status === 'PUBLISHED' ? 'LIVE' : 'SUBMIT'}
+                    </button>
+                  </div>
+                  {course.status === 'DRAFT' && (
+                    <button
+                      onClick={() => {
+                        if (window.confirm('Are you sure you want to delete this draft course?')) {
+                          deleteItem(course.id);
+                        }
+                      }}
+                      className="ml-2 p-2 text-gray-400 hover:text-red-500 transition-colors"
+                      title="Delete Draft"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  )}
                 </div>
               </div>
             </Card>

@@ -3,12 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { GoogleGenAI } from "@google/genai";
 import { useCourseBuilder } from '../../context/CourseBuilderContext';
 import { BLOCK_TYPE_ICONS } from '../../constants/builderConstants';
-import { Button, Input, Badge, Label, TextArea, FileUpload, Toast } from '../../components/builder/UI';
+import { Button, Input, Badge, Label, TextArea, FileUpload, Toast, ProgressBar } from '../../components/builder/UI';
+import { uploadScormPackage, listenToScormStatus, ScormProcessingStatus, exportCourse } from '../../src/firebase';
 import {
   ArrowLeft, Plus, Trash2, GripVertical, ChevronDown, ChevronRight,
   FileText, Video, Link as LinkIcon, CheckSquare,
   HelpCircle, Type, Eye, Save, Layout, Package,
-  Edit2, X, Sparkles, Loader2, Wand2
+  Edit2, X, Sparkles, Loader2, Wand2, Download
 } from 'lucide-react';
 import { Block, BlockType, Lesson, CourseModule } from '../../types';
 import * as LucideIcons from 'lucide-react';
@@ -32,6 +33,8 @@ export const BuilderCourseBuilder: React.FC = () => {
   const [activeAiBlockId, setActiveAiBlockId] = useState<string | null>(null);
   const [aiPrompt, setAiPrompt] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<{ [blockId: string]: number }>({});
+  const [scormStatuses, setScormStatuses] = useState<{ [blockId: string]: ScormProcessingStatus }>({});
 
   useEffect(() => {
     if (courseId) loadCourse(courseId);
@@ -181,6 +184,72 @@ export const BuilderCourseBuilder: React.FC = () => {
     }
   };
 
+  const handleScormUpload = async (lessonId: string, blockId: string, file: File) => {
+    if (!courseId) return;
+    try {
+      setUploadProgress(prev => ({ ...prev, [blockId]: 1 })); // Start progress
+      // 1. Upload
+      const { storagePath, downloadUrl } = await uploadScormPackage(file, courseId, (progress) => {
+        setUploadProgress(prev => ({ ...prev, [blockId]: progress }));
+      });
+
+      // 2. Update Context
+      // Store initial metadata. Backend will pick up from here.
+      // We need to update the block metadata.
+      // Since updateBlockContent takes a string, we might only store the filename or status there,
+      // but ideally we utilize the 'scormMetadata' field we added to types.
+      // For now, let's look at how to update scormMetadata. 
+      // We need to add a new function or modify updateBlockContent to accept entire block override.
+      // Or just assume updateBlockContent handles string content (filename) and we use a new helper for metadata.
+      // Let's create a specialized updater for metadata in this scope since `updateBlockContent` is restricted.
+      // Actually, we can just modify the state locally and call updateModules.
+
+      const newModules = modules.map(m => ({
+        ...m,
+        lessons: m.lessons.map(l => l.id === lessonId ? {
+          ...l,
+          blocks: l.blocks.map(b => b.id === blockId ? {
+            ...b,
+            content: file.name,
+            scormMetadata: { status: 'PROCESSING' as const, storagePath }
+          } : b)
+        } : l)
+      }));
+      setModules(newModules);
+      if (courseId) updateModules(courseId, newModules);
+
+      // 3. Listen for status
+      listenToScormStatus(storagePath, (status) => {
+        setScormStatuses(prev => ({ ...prev, [blockId]: status }));
+
+        // Update persistent state if Launch URL is ready
+        if (status.status === 'READY' && status.launchUrl) {
+          const updatedModules = modules.map(m => ({
+            ...m,
+            lessons: m.lessons.map(l => l.id === lessonId ? {
+              ...l,
+              blocks: l.blocks.map(b => b.id === blockId ? {
+                ...b,
+                scormMetadata: { ...status }
+              } : b)
+            } : l)
+          }));
+          // Only update if changed to avoid loop - checking roughly
+          // setModules(updatedModules); // React state might loop if we are not careful with onSnapshot.
+          // Better to just keep local state for live updates and save periodically?
+          // For now, let's just rely on local state 'scormStatuses' for the UI and 'modules' for persistence.
+          if (activeCourse?.id) updateModules(activeCourse.id, updatedModules);
+        }
+      });
+
+    } catch (e) {
+      console.error(e);
+      setToastMessage('Upload failed');
+      setShowToast(true);
+      setUploadProgress(prev => ({ ...prev, [blockId]: 0 }));
+    }
+  };
+
   const handleDragStart = (e: React.DragEvent, type: 'MODULE' | 'LESSON', id: string, parentId?: string) => {
     e.stopPropagation();
     setDragData({ type, id, parentId });
@@ -296,8 +365,31 @@ export const BuilderCourseBuilder: React.FC = () => {
                       <div className="p-8 bg-gray-100 rounded-xl border border-gray-200 text-center">
                         <Package size={48} className="mx-auto text-gray-400 mb-4" />
                         <h4 className="font-bold text-navy">Interactive Module</h4>
-                        <p className="text-sm text-gray-500 mb-4">{block.content}</p>
-                        <Button size="sm">Launch Module</Button>
+                        <p className="text-sm text-gray-500 mb-2">{block.content}</p>
+                        {block.scormMetadata?.status === 'PROCESSING' && (
+                          <div className="mb-4">
+                            <Badge variant="draft">Processing...</Badge>
+                          </div>
+                        )}
+                        {block.scormMetadata?.status === 'READY' && (
+                          <div className="mb-4">
+                            <Badge variant="published">Ready to Launch</Badge>
+                          </div>
+                        )}
+                        {block.scormMetadata?.status === 'ERROR' && (
+                          <div className="mb-4 text-red-500 text-xs">
+                            Processing Failed
+                          </div>
+                        )}
+                        <Button
+                          size="sm"
+                          disabled={block.scormMetadata?.status !== 'READY'}
+                          onClick={() => {
+                            if (block.scormMetadata?.launchUrl) window.open(block.scormMetadata.launchUrl, '_blank');
+                          }}
+                        >
+                          Launch Module
+                        </Button>
                       </div>
                     ) : (
                       <div className="p-4 bg-transparent whitespace-pre-wrap">
@@ -332,6 +424,39 @@ export const BuilderCourseBuilder: React.FC = () => {
         <div className="flex items-center gap-3">
           {lastSaved && <span className="text-xs text-gray-400 font-bold mr-2">Saved</span>}
           <Button variant="outline" size="sm" icon={Eye} onClick={() => setPreviewMode(true)}>Preview</Button>
+          <Button
+            variant="outline"
+            size="sm"
+            icon={Download}
+            onClick={async () => {
+              if (!activeCourse || !courseId) return;
+              try {
+                setToastMessage('Exporting course...');
+                setShowToast(true);
+                const downloadUrl = await exportCourse(courseId, {
+                  metadata: {
+                    title: activeCourse.title,
+                    description: activeCourse.description || '',
+                    tier: activeCourse.tier,
+                    branch: activeCourse.branch,
+                    accredited: activeCourse.accredited || false,
+                    thumbnail: activeCourse.thumbnail || ''
+                  },
+                  modules: modules
+                });
+                // Trigger download
+                window.open(downloadUrl, '_blank');
+                setToastMessage('Course exported successfully!');
+                setShowToast(true);
+              } catch (error) {
+                console.error('Export failed:', error);
+                setToastMessage('Export failed. Please try again.');
+                setShowToast(true);
+              }
+            }}
+          >
+            Export
+          </Button>
           <Button variant="primary" size="sm" icon={Save} onClick={saveChanges}>Save</Button>
         </div>
       </div>
@@ -430,6 +555,45 @@ export const BuilderCourseBuilder: React.FC = () => {
             >
               <Plus size={16} /> Add Module
             </button>
+
+            <div className="pt-4 border-t border-gray-100">
+              <Label>Import Content</Label>
+              <FileUpload
+                accept=".zip"
+                label="Import SCORM Course"
+                readContent={false}
+                onChange={(file, _) => {
+                  if (file && courseId) {
+                    setToastMessage("Uploading SCORM Course...");
+                    setShowToast(true);
+                    uploadScormPackage(file, courseId, (p) => {
+                      // Optional: Global progress
+                      if (p % 20 === 0) console.log("Import uploading:", p);
+                    }).then(({ storagePath }) => {
+                      listenToScormStatus(storagePath, (status) => {
+                        if (status.status === 'READY' && status.courseStructure) {
+                          // Merge imported structure
+                          const importedModules = status.courseStructure as CourseModule[];
+                          // Adjust IDs to ensure uniqueness if needed, assuming backend did ok
+                          // Adjust Order
+                          const currentMaxOrder = modules.length > 0 ? Math.max(...modules.map(m => m.order)) + 1 : 0;
+                          importedModules.forEach((m, i) => m.order = currentMaxOrder + i);
+
+                          const newModules = [...modules, ...importedModules];
+                          setModules(newModules);
+                          updateModules(courseId, newModules);
+                          setToastMessage("SCORM Structure Imported Successfully!");
+                          setShowToast(true);
+                        } else if (status.status === 'ERROR') {
+                          setToastMessage(`Import Failed: ${status.error}`);
+                          setShowToast(true);
+                        }
+                      });
+                    });
+                  }
+                }}
+              />
+            </div>
           </div>
         </div>
 
@@ -493,13 +657,29 @@ export const BuilderCourseBuilder: React.FC = () => {
                                 readContent={false}
                                 currentPreviewUrl={block.content}
                                 onChange={(file, _) => {
-                                  updateBlockContent(activeData.lesson.id, block.id, file ? file.name : "");
+                                  if (file) handleScormUpload(activeData.lesson.id, block.id, file);
                                 }}
                               />
+                              {uploadProgress[block.id] > 0 && uploadProgress[block.id] < 100 && (
+                                <div className="mt-2">
+                                  <div className="text-xs font-bold text-gray-500 mb-1 flex justify-between">
+                                    <span>UPLOADING...</span>
+                                    <span>{Math.round(uploadProgress[block.id])}%</span>
+                                  </div>
+                                  <ProgressBar progress={uploadProgress[block.id]} />
+                                </div>
+                              )}
                               {block.content && (
-                                <div className="flex items-center gap-2 text-sm text-green-600 font-bold bg-green-50 p-2 rounded mt-2">
-                                  <Package size={16} />
-                                  {block.content}
+                                <div className="flex items-center justify-between gap-2 text-sm text-green-600 font-bold bg-green-50 p-2 rounded mt-2">
+                                  <div className="flex items-center gap-2">
+                                    <Package size={16} />
+                                    {block.content}
+                                  </div>
+                                  <div className="flex items-center">
+                                    {/* Show status from metadata or local listener */}
+                                    {scormStatuses[block.id]?.status === 'PROCESSING' && <span className="text-xs text-orange-500 animate-pulse">PROCESSING</span>}
+                                    {block.scormMetadata?.status === 'READY' && <span className="text-xs text-green-600">READY</span>}
+                                  </div>
                                 </div>
                               )}
                             </div>

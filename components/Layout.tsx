@@ -25,7 +25,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             {user ? (
               <div className="hidden md:flex items-center space-x-8 font-bold uppercase tracking-wide text-sm">
                 <Link to="/dashboard" className={isActive('/dashboard')}>Dashboard</Link>
-                <Link to="/catalogue" className={isActive('/catalogue')}>Catalogue</Link>
+                <Link to="/catalogue" className={isActive('/catalogue')}>Courses</Link>
                 <Link to="/skill-tree" className={isActive('/skill-tree')}>Skill Tree</Link>
                 <Link to="/my-learning" className={isActive('/my-learning')}>My Learning</Link>
                 <Link to="/profile" className={isActive('/profile')}>Profile</Link>
@@ -70,7 +70,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         {isMenuOpen && user && (
           <div className="md:hidden bg-blue-700 px-4 pt-2 pb-4 space-y-2 border-t border-blue-600">
             <Link to="/dashboard" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Dashboard</Link>
-            <Link to="/catalogue" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Catalogue</Link>
+            <Link to="/catalogue" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Courses</Link>
             <Link to="/skill-tree" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Skill Tree</Link>
             <Link to="/my-learning" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">My Learning</Link>
             {isContributor && (

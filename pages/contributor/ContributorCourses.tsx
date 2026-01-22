@@ -1,17 +1,51 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../../store';
 import { Button, Card, Badge } from '../../components/UI';
 import { DOMAINS } from '../../data';
-import { Plus, Layers, Edit, Send } from 'lucide-react';
+import { Plus, Layers, Edit, Send, Upload } from 'lucide-react';
+import { uploadCourseImport, listenToCourseImportStatus } from '../../src/firebase';
 
 export const ContributorCourses = () => {
   const { user, items, submitItemForReview } = useStore();
+  const navigate = useNavigate();
   const myItems = items.filter(i => i.createdById === user?.id);
+  const [isImporting, setIsImporting] = useState(false);
+  const [importProgress, setImportProgress] = useState(0);
 
   const handleSubmit = (itemId: string) => {
     const notes = window.prompt('Add submission notes (optional):', '');
     submitItemForReview(itemId, notes || undefined);
+  };
+
+  const handleImport = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsImporting(true);
+    setImportProgress(0);
+
+    try {
+      const { storagePath } = await uploadCourseImport(file, (progress) => {
+        setImportProgress(progress);
+      });
+
+      // Listen for import completion
+      listenToCourseImportStatus(storagePath, (status) => {
+        if (status.status === 'READY' && status.courseId) {
+          setIsImporting(false);
+          // Redirect to the newly imported course
+          navigate(`/contribute/${status.courseId}/builder`);
+        } else if (status.status === 'ERROR') {
+          setIsImporting(false);
+          alert(`Import failed: ${status.error}`);
+        }
+      });
+    } catch (error) {
+      console.error('Import upload failed:', error);
+      setIsImporting(false);
+      alert('Failed to upload import file');
+    }
   };
 
   return (
@@ -21,15 +55,36 @@ export const ContributorCourses = () => {
           <h1 className="text-3xl font-display uppercase text-slate-900">Contributor Studio</h1>
           <p className="text-slate-500">Create courses and submit them for admin review.</p>
         </div>
-        <Link to="/contribute/new">
-          <Button className="flex items-center gap-2"><Plus size={18} /> New Course</Button>
-        </Link>
+        <div className="flex gap-2">
+          <input
+            type="file"
+            accept=".zip"
+            onChange={handleImport}
+            style={{ display: 'none' }}
+            id="import-course-input"
+            disabled={isImporting}
+          />
+          <label htmlFor="import-course-input">
+            <Button
+              as="span"
+              variant="outline"
+              className="flex items-center gap-2 cursor-pointer"
+              disabled={isImporting}
+            >
+              <Upload size={18} />
+              {isImporting ? `Importing... ${Math.round(importProgress)}%` : 'Import Course'}
+            </Button>
+          </label>
+          <Link to="/contribute/new">
+            <Button className="flex items-center gap-2"><Plus size={18} /> New Course</Button>
+          </Link>
+        </div>
       </div>
 
       <Card className="p-0 overflow-hidden border border-slate-200">
         <div className="bg-slate-50 px-6 py-4 text-xs font-bold uppercase text-slate-500 grid grid-cols-12 gap-4">
           <div className="col-span-5">Course</div>
-          <div className="col-span-3">Domain</div>
+          <div className="col-span-3">Branch</div>
           <div className="col-span-2">Status</div>
           <div className="col-span-2 text-right">Actions</div>
         </div>
@@ -49,11 +104,10 @@ export const ContributorCourses = () => {
                   </div>
                   <div className="col-span-3 text-sm text-slate-600">{domain?.name}</div>
                   <div className="col-span-2">
-                    <span className={`text-[10px] font-bold px-2 py-1 rounded uppercase ${
-                      item.status === 'PUBLISHED' ? 'bg-green-100 text-green-700' :
+                    <span className={`text-[10px] font-bold px-2 py-1 rounded uppercase ${item.status === 'PUBLISHED' ? 'bg-green-100 text-green-700' :
                       item.status === 'IN_REVIEW' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-gray-100 text-gray-600'
-                    }`}>
+                        'bg-gray-100 text-gray-600'
+                      }`}>
                       {item.status}
                     </span>
                   </div>

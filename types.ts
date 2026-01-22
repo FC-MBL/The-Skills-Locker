@@ -20,6 +20,12 @@ export interface Block {
   id: string;
   type: BlockType;
   content: string; // JSON or simple text
+  scormMetadata?: {
+    status: 'QUEUED' | 'PROCESSING' | 'READY' | 'ERROR';
+    launchUrl?: string;
+    packageId?: string;
+    error?: string;
+  };
   order: number;
 }
 

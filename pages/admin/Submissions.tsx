@@ -15,7 +15,7 @@ export const Submissions: React.FC = () => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-4xl font-display text-navy mb-1">Course Submissions</h1>
-          <p className="text-gray-500">Review and approve content for the catalogue.</p>
+          <p className="text-gray-500">Review and approve content for the courses.</p>
         </div>
         <Button variant="outline" onClick={() => navigate('/admin')}>Back to Admin</Button>
       </div>
