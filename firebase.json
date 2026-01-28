@@ -4,7 +4,7 @@
     },
     "functions": [
         {
-            "source": "functions",
+            "source": "firebase-functions",
             "codebase": "default",
             "ignore": [
                 "node_modules",
@@ -13,6 +13,16 @@
                 "firebase-debug.*.log",
                 "*.local"
             ]
+        },
+        {
+            "source": "functions-python",
+            "codebase": "python-functions",
+            "ignore": [
+                "venv",
+                ".git",
+                "__pycache__"
+            ],
+            "runtime": "python311"
         }
     ],
     "hosting": {

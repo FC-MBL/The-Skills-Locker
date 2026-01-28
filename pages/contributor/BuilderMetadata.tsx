@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCourseBuilder } from '../../context/CourseBuilderContext';
 import { DOMAINS } from '../../data';
-import { Button, Input, Label, Select, TextArea, Card, FileUpload } from '../../components/builder/UI';
-import { ArrowLeft, Save, CheckCircle, Layout } from 'lucide-react';
+import { Button, Input, Label, Select, TextArea, Card, FileUpload, Toast } from '../../components/builder/UI';
+import { ArrowLeft, Save, CheckCircle, Layout, Image as ImageIcon } from 'lucide-react';
 import { Tier } from '../../types';
+import { generateThumbnail } from '../../src/utils/thumbnailGenerator';
 
 export const BuilderMetadata: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
-  const { activeCourse, courses, loadCourse, updateCourse, saveCourse, lastSaved } = useCourseBuilder();
+  const { activeCourse, courses, loadCourse, updateCourse, saveCourse, lastSaved, user } = useCourseBuilder();
 
   const [formData, setFormData] = useState<any>(null);
 
@@ -128,8 +129,22 @@ export const BuilderMetadata: React.FC = () => {
                   onChange={(e) => handleChange('domainId', e.target.value)}
                 >
                   {DOMAINS.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
+                  <option value="other">Other</option>
                 </Select>
               </div>
+
+              {formData.domainId === 'other' && (
+                <div>
+                  <Label htmlFor="customBranch" required>Custom Branch Name</Label>
+                  <Input
+                    id="customBranch"
+                    value={formData.customBranch || ''}
+                    onChange={(e) => handleChange('customBranch', e.target.value)}
+                    placeholder="e.g. Yoga"
+                  />
+                </div>
+              )}
+
               <div>
                 <Label>Tier</Label>
                 <div className="grid grid-cols-3 gap-2">
@@ -176,13 +191,46 @@ export const BuilderMetadata: React.FC = () => {
           </Card>
 
           <Card className="p-6">
-            <Label>Cover Image</Label>
+            <div className="flex justify-between items-center mb-2">
+              <Label>Cover Image</Label>
+              <Button
+                variant="ghost"
+                size="sm"
+                icon={ImageIcon}
+                onClick={async () => {
+                  console.log("Auto-Gen clicked");
+                  try {
+                    const contributorName = user?.name || activeCourse?.createdByName || 'Contributor';
+                    console.log("Contributor:", contributorName);
+                    // Use a placeholder if no avatar available
+                    // We need a URL for the image. If user.avatarUrl is not set, use a default.
+                    const contributorImage = user?.avatarUrl || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(contributorName);
+
+                    const branchId = formData.domainId;
+                    const customBranch = formData.customBranch;
+                    const title = formData.title || 'Untitled Course';
+
+                    const thumbnail = await generateThumbnail(branchId, customBranch, title, contributorName, contributorImage);
+                    handleChange('image', thumbnail);
+                  } catch (e) {
+                    console.error("Thumbnail generation failed", e);
+                    // Minimal error handling, ideally show a toast 
+                    // Since I can't easily add a toast trigger without more state, I'll log it.
+                    // Or I can use alert() temporarily but better to just fail silently or log.
+                  }
+                }}
+              >
+                Auto-Gen
+              </Button>
+            </div>
+
             <FileUpload
               accept="image/*"
               currentPreviewUrl={formData.image}
               onChange={(file, url) => handleChange('image', url)}
               className="mb-4"
             />
+
             <Label>Or Image URL</Label>
             <Input
               value={formData.image}

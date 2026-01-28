@@ -1,0 +1,7 @@
+firebase-functions
+rembg
+Pillow
+numpy
+onnxruntime
+flask
+cors

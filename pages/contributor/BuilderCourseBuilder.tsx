@@ -35,6 +35,8 @@ export const BuilderCourseBuilder: React.FC = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<{ [blockId: string]: number }>({});
   const [scormStatuses, setScormStatuses] = useState<{ [blockId: string]: ScormProcessingStatus }>({});
+  const [scormImportProgress, setScormImportProgress] = useState<number>(0);
+  const [isImportingScorm, setIsImportingScorm] = useState(false);
 
   useEffect(() => {
     if (courseId) loadCourse(courseId);
@@ -391,6 +393,21 @@ export const BuilderCourseBuilder: React.FC = () => {
                           Launch Module
                         </Button>
                       </div>
+                    ) : block.type === 'HTML_VIEWER' ? (
+                      <div className="p-8 bg-gray-100 rounded-xl border border-gray-200 text-center">
+                        <Eye size={48} className="mx-auto text-gray-400 mb-4" />
+                        <h4 className="font-bold text-navy">HTML Viewer</h4>
+                        <p className="text-sm text-gray-500 mb-2">{block.content}</p>
+                        <Button
+                          size="sm"
+                          disabled={!block.launchUrl}
+                          onClick={() => {
+                            if (block.launchUrl) window.open(block.launchUrl, '_blank');
+                          }}
+                        >
+                          Open Page
+                        </Button>
+                      </div>
                     ) : (
                       <div className="p-4 bg-transparent whitespace-pre-wrap">
                         {block.content || <em className="text-gray-400">Empty block content</em>}
@@ -558,17 +575,30 @@ export const BuilderCourseBuilder: React.FC = () => {
 
             <div className="pt-4 border-t border-gray-100">
               <Label>Import Content</Label>
+
+              {isImportingScorm && (
+                <div className="mb-3">
+                  <div className="flex justify-between text-xs text-gray-600 mb-1">
+                    <span>Uploading SCORM package...</span>
+                    <span>{Math.round(scormImportProgress)}%</span>
+                  </div>
+                  <ProgressBar value={scormImportProgress} />
+                </div>
+              )}
+
               <FileUpload
                 accept=".zip"
                 label="Import SCORM Course"
                 readContent={false}
+                disabled={isImportingScorm}
                 onChange={(file, _) => {
                   if (file && courseId) {
+                    setIsImportingScorm(true);
+                    setScormImportProgress(0);
                     setToastMessage("Uploading SCORM Course...");
                     setShowToast(true);
                     uploadScormPackage(file, courseId, (p) => {
-                      // Optional: Global progress
-                      if (p % 20 === 0) console.log("Import uploading:", p);
+                      setScormImportProgress(p);
                     }).then(({ storagePath }) => {
                       listenToScormStatus(storagePath, (status) => {
                         if (status.status === 'READY' && status.courseStructure) {
@@ -584,9 +614,13 @@ export const BuilderCourseBuilder: React.FC = () => {
                           updateModules(courseId, newModules);
                           setToastMessage("SCORM Structure Imported Successfully!");
                           setShowToast(true);
+                          setIsImportingScorm(false);
+                          setScormImportProgress(0);
                         } else if (status.status === 'ERROR') {
                           setToastMessage(`Import Failed: ${status.error}`);
                           setShowToast(true);
+                          setIsImportingScorm(false);
+                          setScormImportProgress(0);
                         }
                       });
                     });
@@ -682,6 +716,30 @@ export const BuilderCourseBuilder: React.FC = () => {
                                   </div>
                                 </div>
                               )}
+                            </div>
+                          ) : block.type === 'HTML_VIEWER' ? (
+                            <div className="space-y-2">
+                              <Label>HTML Viewer</Label>
+                              <div className="flex items-center justify-between gap-3 bg-gray-50 border border-gray-200 rounded-lg p-3">
+                                <div className="flex flex-col min-w-0">
+                                  <span className="text-sm font-semibold text-navy truncate">
+                                    {block.content || 'Imported HTML page'}
+                                  </span>
+                                  <span className="text-xs text-gray-500 truncate">
+                                    {block.launchUrl || 'Launch URL not available.'}
+                                  </span>
+                                </div>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  disabled={!block.launchUrl}
+                                  onClick={() => {
+                                    if (block.launchUrl) window.open(block.launchUrl, '_blank');
+                                  }}
+                                >
+                                  Open
+                                </Button>
+                              </div>
                             </div>
                           ) : (
                             <div className="relative">

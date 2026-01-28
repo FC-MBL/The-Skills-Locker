@@ -1,120 +1,129 @@
-font-family: 'Aileron';
-src: url('/fonts/Aileron-Regular.otf') format('opentype');
-font-weight: 400;
-font-style: normal;
-}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Skills Locker</title>
 
-@font-face {
-font-family: 'Aileron';
-src: url('/fonts/Aileron-Bold.otf') format('opentype');
-font-weight: 700;
-font-style: normal;
-}
-
-@font-face {
-font-family: 'Aileron';
-src: url('/fonts/Aileron-SemiBold.otf') format('opentype');
-font-weight: 600;
-font-style: normal;
-}
-
-@font-face {
-font-family: 'Aileron';
-src: url('/fonts/Aileron-Light.otf') format('opentype');
-font-weight: 300;
-font-style: normal;
-}
-
-@font-face {
-font-family: 'Black Diamond';
-src: url('/fonts/Set Sail Studios - BlackDiamond.otf') format('opentype');
-}
-</style>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          primary: '#CE2829', // FIT College Red
-          secondary: '#21428D', // FIT College Blue
-          dark: '#000000', // FIT College Black
-          light: '#FFFFFF', // White
-          bgLight: '#F5F5F5',
-          red: {
-            DEFAULT: '#C62828',
-            600: '#B91C1C',
-            700: '#991B1B',
-          },
-          blue: {
-            DEFAULT: '#1E40AF',
-            600: '#1C3D8C',
-          },
-          navy: '#0B1220',
-          slate: {
-            DEFAULT: '#111827',
-          },
-          success: '#16A34A',
-          warning: '#F59E0B',
-          danger: '#DC2626',
-          gold: '#FBBF24',
-        },
-        fontFamily: {
-          sans: ['Aileron', 'sans-serif'],
-          display: ['Black Diamond', 'sans-serif'],
-        },
-        borderRadius: {
-          card: '16px',
-          input: '10px',
-        },
-        boxShadow: {
-          card: '0 6px 18px rgba(15, 23, 42, 0.08)',
-          elevated: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-        },
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @font-face {
+        font-family: 'Aileron';
+        src: url('/fonts/Aileron-Regular.otf') format('opentype');
+        font-weight: 400;
+        font-style: normal;
       }
-    }
-  }
-</script>
-<style>
-  body {
-    background-color: #F8FAFC;
-  }
 
-  /* Custom scrollbar for better aesthetics */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
+      @font-face {
+        font-family: 'Aileron';
+        src: url('/fonts/Aileron-Bold.otf') format('opentype');
+        font-weight: 700;
+        font-style: normal;
+      }
 
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
+      @font-face {
+        font-family: 'Aileron';
+        src: url('/fonts/Aileron-SemiBold.otf') format('opentype');
+        font-weight: 600;
+        font-style: normal;
+      }
 
-  ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 4px;
-  }
+      @font-face {
+        font-family: 'Aileron';
+        src: url('/fonts/Aileron-Light.otf') format('opentype');
+        font-weight: 300;
+        font-style: normal;
+      }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
-  }
-</style>
+      @font-face {
+        font-family: 'Black Diamond';
+        src: url('/fonts/Set%20Sail%20Studios%20-%20BlackDiamond.otf') format('opentype');
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#CE2829',
+              secondary: '#21428D',
+              dark: '#000000',
+              light: '#FFFFFF',
+              bgLight: '#F5F5F5',
+              red: {
+                DEFAULT: '#C62828',
+                600: '#B91C1C',
+                700: '#991B1B',
+              },
+              blue: {
+                DEFAULT: '#1E40AF',
+                600: '#1C3D8C',
+              },
+              navy: '#0B1220',
+              slate: {
+                DEFAULT: '#111827',
+              },
+              success: '#16A34A',
+              warning: '#F59E0B',
+              danger: '#DC2626',
+              gold: '#FBBF24',
+            },
+            fontFamily: {
+              sans: ['Aileron', 'sans-serif'],
+              display: ['Black Diamond', 'sans-serif'],
+            },
+            borderRadius: {
+              card: '16px',
+              input: '10px',
+            },
+            boxShadow: {
+              card: '0 6px 18px rgba(15, 23, 42, 0.08)',
+              elevated:
+                '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #f8fafc;
+      }
 
-<script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
-  }
-}
-</script>
-  <script type="module" crossorigin src="/assets/index-CzWSnucE.js"></script>
-</head>
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
 
-<body>
-  <div id="root"></div>
-</body>
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
 
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+          "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+          "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+          "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
+          "react/": "https://esm.sh/react@^19.2.3/",
+          "react": "https://esm.sh/react@^19.2.3"
+        }
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-Cq4mTJ5e.js"></script>
+  </head>
+
+  <body class="bg-bgLight text-slate-900 antialiased font-sans">
+    <div id="root"></div>
+  </body>
 </html>

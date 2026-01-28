@@ -64,6 +64,7 @@ export const CourseBuilderProvider: React.FC<{ children: React.ReactNode }> = ({
       title: 'Untitled Course',
       description: '',
       domainId: 'dom_sc',
+      customBranch: '',
       tier: 'BYTE',
       durationLabel: '',
       price: 0,

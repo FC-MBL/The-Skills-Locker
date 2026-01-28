@@ -8,4 +8,5 @@ export const BLOCK_TYPE_ICONS: Record<string, string> = {
   QUIZ: 'HelpCircle',
   ASSIGNMENT: 'ClipboardList',
   SCORM: 'Package',
+  HTML_VIEWER: 'Eye',
 };

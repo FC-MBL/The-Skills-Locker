@@ -14,12 +14,13 @@ export interface Domain {
 }
 
 // Deep Content Structure for Builder
-export type BlockType = "VIDEO" | "TEXT" | "FILE" | "CHECKLIST" | "REFLECTION" | "LINK" | "QUIZ" | "ASSIGNMENT" | "SCORM";
+export type BlockType = "VIDEO" | "TEXT" | "FILE" | "CHECKLIST" | "REFLECTION" | "LINK" | "QUIZ" | "ASSIGNMENT" | "SCORM" | "HTML_VIEWER";
 
 export interface Block {
   id: string;
   type: BlockType;
   content: string; // JSON or simple text
+  launchUrl?: string;
   scormMetadata?: {
     status: 'QUEUED' | 'PROCESSING' | 'READY' | 'ERROR';
     launchUrl?: string;
@@ -49,20 +50,6 @@ export interface CourseModule {
 
 export interface Item {
   id: string;
-  domainId: string;
-  tier: Tier;
-  title: string;
-  description: string;
-  durationLabel: string;
-  accredited: boolean;
-  outcomes: string[];
-  prerequisites: string[];
-  popularityScore?: number;
-  createdAt?: string;
-  createdById?: string;
-  createdByName?: string;
-  submittedAt?: string;
-  reviewedAt?: string;
   reviewNotes?: string;
   image: string;
   price: number;
