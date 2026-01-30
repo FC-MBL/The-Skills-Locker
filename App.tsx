@@ -23,6 +23,7 @@ import { CourseList } from './pages/admin/CourseList';
 import { CourseEditor } from './pages/admin/CourseEditor';
 import { UsersCohorts } from './pages/admin/UsersCohorts';
 import { Submissions } from './pages/admin/Submissions';
+import ThumbnailGeneratorPage from './pages/admin/ThumbnailGeneratorPage';
 
 // Contributor Pages
 import { BuilderDashboard } from './pages/contributor/BuilderDashboard';
@@ -76,15 +77,19 @@ const App: React.FC = () => {
         <Route path="/admin/courses/:id/builder" element={<ContributorRoute><BuilderCourseBuilder /></ContributorRoute>} />
         <Route path="/admin/submissions" element={<AdminRoute><Submissions /></AdminRoute>} />
         <Route path="/admin/cohorts" element={<AdminRoute><UsersCohorts /></AdminRoute>} />
+
+        {/* Thumbnail Generator */}
+        <Route path="/admin/thumbnail-generator" element={<AdminRoute><ThumbnailGeneratorPage /></AdminRoute>} />
+
         {/* Question Bank placeholder reused for now or could be separate */}
         <Route path="/admin/question-bank" element={<AdminRoute><div className="p-8 font-bold">Question Bank Under Construction</div></AdminRoute>} />
 
-          {/* Contributor Routes */}
-          <Route path="/contribute" element={<ContributorRoute><BuilderDashboard /></ContributorRoute>} />
-          <Route path="/contribute/new" element={<ContributorRoute><CreateCourseRedirect /></ContributorRoute>} />
-          <Route path="/contribute/:courseId/metadata" element={<ContributorRoute><BuilderMetadata /></ContributorRoute>} />
-          <Route path="/contribute/:courseId/structure" element={<ContributorRoute><BuilderCourseBuilder /></ContributorRoute>} />
-        </Routes>
+        {/* Contributor Routes */}
+        <Route path="/contribute" element={<ContributorRoute><BuilderDashboard /></ContributorRoute>} />
+        <Route path="/contribute/new" element={<ContributorRoute><CreateCourseRedirect /></ContributorRoute>} />
+        <Route path="/contribute/:courseId/metadata" element={<ContributorRoute><BuilderMetadata /></ContributorRoute>} />
+        <Route path="/contribute/:courseId/structure" element={<ContributorRoute><BuilderCourseBuilder /></ContributorRoute>} />
+      </Routes>
     </Router>
   );
 };

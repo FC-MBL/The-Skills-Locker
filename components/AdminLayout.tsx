@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useStore } from '../store';
-import { LayoutDashboard, BookOpen, Users, FolderPlus, LogOut, ClipboardCheck } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Users, FolderPlus, LogOut, ClipboardCheck, Image as ImageIcon } from 'lucide-react';
 
 export const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
    const { user, logout } = useStore();
@@ -33,6 +33,9 @@ export const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children 
                </Link>
                <Link to="/admin/question-bank" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive('/admin/question-bank')}`}>
                   <FolderPlus size={20} /> Question Bank
+               </Link>
+               <Link to="/admin/thumbnail-generator" className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive('/admin/thumbnail-generator')}`}>
+                  <ImageIcon size={20} /> Thumbnail Gen
                </Link>
             </nav>
 

@@ -5,7 +5,7 @@ import { DOMAINS } from '../../data';
 import { Button, Input, Label, Select, TextArea, Card, FileUpload, Toast } from '../../components/builder/UI';
 import { ArrowLeft, Save, CheckCircle, Layout, Image as ImageIcon } from 'lucide-react';
 import { Tier } from '../../types';
-import { generateThumbnail } from '../../src/utils/thumbnailGenerator';
+import { generateThumbnail } from "@/src/utils/thumbnailGenerator";
 
 export const BuilderMetadata: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();

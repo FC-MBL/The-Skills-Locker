@@ -1,113 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Skills Locker</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @font-face {
-        font-family: 'Aileron';
-        src: url('/fonts/Aileron-Regular.otf') format('opentype');
-        font-weight: 400;
-        font-style: normal;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Skills Locker</title>
 
-      @font-face {
-        font-family: 'Aileron';
-        src: url('/fonts/Aileron-Bold.otf') format('opentype');
-        font-weight: 700;
-        font-style: normal;
-      }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @font-face {
+      font-family: 'Aileron';
+      src: url('/fonts/Aileron-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+    }
 
-      @font-face {
-        font-family: 'Aileron';
-        src: url('/fonts/Aileron-SemiBold.otf') format('opentype');
-        font-weight: 600;
-        font-style: normal;
-      }
+    @font-face {
+      font-family: 'Aileron';
+      src: url('/fonts/Aileron-Bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+    }
 
-      @font-face {
-        font-family: 'Aileron';
-        src: url('/fonts/Aileron-Light.otf') format('opentype');
-        font-weight: 300;
-        font-style: normal;
-      }
+    @font-face {
+      font-family: 'Aileron';
+      src: url('/fonts/Aileron-SemiBold.otf') format('opentype');
+      font-weight: 600;
+      font-style: normal;
+    }
 
-      @font-face {
-        font-family: 'Black Diamond';
-        src: url('/fonts/Set Sail Studios - BlackDiamond.otf') format('opentype');
-      }
-    </style>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#CE2829',
-              secondary: '#21428D',
-              dark: '#000000',
-              light: '#FFFFFF',
-              bgLight: '#F5F5F5',
-              red: {
-                DEFAULT: '#C62828',
-                600: '#B91C1C',
-                700: '#991B1B',
-              },
-              blue: {
-                DEFAULT: '#1E40AF',
-                600: '#1C3D8C',
-              },
-              navy: '#0B1220',
-              slate: {
-                DEFAULT: '#111827',
-              },
-              success: '#16A34A',
-              warning: '#F59E0B',
-              danger: '#DC2626',
-              gold: '#FBBF24',
+    @font-face {
+      font-family: 'Aileron';
+      src: url('/fonts/Aileron-Light.otf') format('opentype');
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Black Diamond';
+      src: url('/fonts/BlackDiamond.otf') format('opentype');
+    }
+
+    @font-face {
+      font-family: 'Varsity';
+      src: url('/fonts/varsity_regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#CE2829',
+            secondary: '#21428D',
+            dark: '#000000',
+            light: '#FFFFFF',
+            bgLight: '#F5F5F5',
+            red: {
+              DEFAULT: '#C62828',
+              600: '#B91C1C',
+              700: '#991B1B',
             },
-            fontFamily: {
-              sans: ['Aileron', 'sans-serif'],
-              display: ['Black Diamond', 'sans-serif'],
+            blue: {
+              DEFAULT: '#1E40AF',
+              600: '#1C3D8C',
             },
-            borderRadius: {
-              card: '16px',
-              input: '10px',
+            navy: '#0B1220',
+            slate: {
+              DEFAULT: '#111827',
             },
-            boxShadow: {
-              card: '0 6px 18px rgba(15, 23, 42, 0.08)',
-              elevated:
-                '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-            },
+            success: '#16A34A',
+            warning: '#F59E0B',
+            danger: '#DC2626',
+            gold: '#FBBF24',
+          },
+          fontFamily: {
+            sans: ['Aileron', 'sans-serif'],
+            display: ['Black Diamond', 'sans-serif'],
+          },
+          borderRadius: {
+            card: '16px',
+            input: '10px',
+          },
+          boxShadow: {
+            card: '0 6px 18px rgba(15, 23, 42, 0.08)',
+            elevated:
+              '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
           },
         },
-      };
-    </script>
-    <style>
-      body {
-        background-color: #f8fafc;
-      }
+      },
+    };
+  </script>
+  <style>
+    body {
+      background-color: #f8fafc;
+    }
 
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
 
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
 
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
-    </style>
-    <script type="importmap">
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+  <script type="importmap">
       {
         "imports": {
           "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
@@ -119,10 +127,11 @@
         }
       }
     </script>
-  </head>
+</head>
 
-  <body class="bg-bgLight text-slate-900 antialiased font-sans">
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+<body class="bg-bgLight text-slate-900 antialiased font-sans">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>
